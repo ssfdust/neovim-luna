@@ -1,3 +1,4 @@
+-- lua_add {{{
 -----------------------------------------------------------
 -- Airline configuration file
 -----------------------------------------------------------
@@ -22,3 +23,4 @@ vim.g["airline#extensions#wordcount#enabled"] = 1
 vim.g["airline#extensions#coc#enabled"] = 1
 
 vim.g["airline#extensions#tabline#buffer_nr_show"] = 1
+-- }}}

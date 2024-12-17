@@ -1,3 +1,4 @@
+-- lua_add {{{
 -----------------------------------------------------------
 -- Rooter configuration
 -----------------------------------------------------------
@@ -8,3 +9,4 @@
 local g = vim.g      -- Gloabl Variables
 
 g.rooter_patterns = {'.git', 'pyproject.toml', '.root', '.svn', 'ansible.cfg'}
+-- }}}

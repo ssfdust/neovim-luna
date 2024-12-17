@@ -1,3 +1,4 @@
+-- lua_add {{{
 -----------------------------------------------------------
 -- Vim-Licenses configuration
 -----------------------------------------------------------
@@ -10,4 +11,4 @@ local g = vim.g      -- Gloabl Variables
 g.licenses_copyright_holders_name = 'RedLotus <ssfdust@gmail.com>'
 g.licenses_authors_name = 'RedLotus <ssfdust@gmail.com>'
 g.licenses_default_commands = {'gpl', 'mit', 'lgpl', 'apache'}
-
+-- }}}

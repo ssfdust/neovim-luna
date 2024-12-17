@@ -1,3 +1,4 @@
+-- lua_add {{{
 -----------------------------------------------------------
 -- Codeium plugin configuration file
 -----------------------------------------------------------
@@ -15,3 +16,4 @@ g.codeium_manual = true
 set_keymap('i', '<C-l>', function () return fn['codeium#Accept']() end, { expr = true, silent = true })
 set_keymap('i', '<C-\\>', function() return fn['codeium#CycleOrComplete']() end, { expr = true, silent = true })
 set_keymap('i', '<C-_>', function() return fn['codeium#Clear']() end, { expr = true, silent = true })
+-- }}}

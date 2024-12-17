@@ -5,15 +5,18 @@ repo = 'tpope/vim-fugitive'
 
 [[plugins]]
 repo = 'airblade/vim-rooter'
+hooks_file = "$BASE_DIR/lua/plugins/rooter.lua"
 
 [[plugins]]
 repo = 'antoyo/vim-licenses'
+hooks_file = "$BASE_DIR/lua/plugins/licenses.lua"
 
 [[plugins]]
 repo = 'lilydjwg/fcitx.vim'
 
 [[plugins]]
 repo = 'Shougo/deol.nvim'
+hooks_file = "$BASE_DIR/lua/plugins/deol.lua"
 
 ### Extra End
 ### UI Section
@@ -23,9 +26,11 @@ repo = 'nvim-tree/nvim-web-devicons'
 
 [[plugins]]
 repo = 'goolord/alpha-nvim'
+hooks_file = "$BASE_DIR/lua/plugins/alpha.lua"
 
 [[plugins]]
 repo = 'vim-airline/vim-airline'
+hooks_file = "$BASE_DIR/lua/plugins/airline.lua"
 
 [[plugins]]
 repo = 'vim-airline/vim-airline-themes'

@@ -4,7 +4,7 @@
 repo = 'Shougo/ddu.vim'
 depends = 'denops.vim'
 on_event = ["BufEnter"]
-hooks_file = '$BASE_DIR/lua/plugins/ddu.lua'
+# hooks_file = '$BASE_DIR/lua/plugins/ddu.lua'
 
 [[plugins]]
 repo = 'vim-denops/denops.vim'

@@ -1,3 +1,4 @@
+-- lua_add {{{
 -----------------------------------------------------------
 -- Deol configuration
 -----------------------------------------------------------
@@ -8,3 +9,4 @@ local g = vim.g      -- Gloabl Variables
 
 g['deol#prompt_pattern'] = '.* '
 g['deol#shell_history_path'] = '~/.local/share/nu/history.txt'
+-- }}}

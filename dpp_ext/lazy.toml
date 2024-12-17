@@ -8,6 +8,7 @@ build = 'sh -c "cd app && yarn install"'
 repo = 'neoclide/coc.nvim'
 rev = 'release'
 on_event = ['InsertEnter', 'CmdlineEnter', 'CursorHold']
+hooks_file = "$BASE_DIR/lua/plugins/coc.lua"
 ### LSP END
 
 ### Snippet Section
@@ -24,7 +25,9 @@ on_event = ['InsertEnter', 'CmdlineEnter']
 [[plugins]]
 repo = 'nvim-treesitter/nvim-treesitter'
 on_event = ['BufEnter', 'CmdlineEnter']
+hooks_file = "$BASE_DIR/lua/plugins/treesitter.lua"
 
 [[plugins]]
 repo = 'Exafunction/codeium.vim'
 on_event = ['InsertEnter']
+hooks_file = "$BASE_DIR/lua/plugins/codeium.lua"

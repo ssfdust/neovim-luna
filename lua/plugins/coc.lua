@@ -1,3 +1,4 @@
+-- lua_add {{{
 -----------------------------------------------------------
 -- Autocomplete configuration file
 -----------------------------------------------------------
@@ -196,3 +197,4 @@ keyset("n", ",j", ":<C-u>CocNext<cr>", opts)
 keyset("n", ",k", ":<C-u>CocPrev<cr>", opts)
 -- Resume latest coc list.
 keyset("n", ",p", ":<C-u>CocListResume<cr>", opts)
+-- }}}

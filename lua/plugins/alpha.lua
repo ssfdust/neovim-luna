@@ -1,3 +1,4 @@
+-- lua_add {{{
 -----------------------------------------------------------
 -- Alpha Startup configuration file
 -----------------------------------------------------------
@@ -45,3 +46,4 @@ dashboard.config.layout = {
 }
 
 alpha.setup(dashboard.config)
+-- }}}
