@@ -1,0 +1,39 @@
+### Extra Section
+### Count: 7
+[[plugins]]
+repo = 'tpope/vim-fugitive'
+
+[[plugins]]
+repo = 'airblade/vim-rooter'
+
+[[plugins]]
+repo = 'antoyo/vim-licenses'
+
+[[plugins]]
+repo = 'lilydjwg/fcitx.vim'
+
+[[plugins]]
+repo = 'Shougo/deol.nvim'
+
+### Extra End
+### UI Section
+### Count: 7
+[[plugins]]
+repo = 'nvim-tree/nvim-web-devicons'
+
+[[plugins]]
+repo = 'goolord/alpha-nvim'
+
+[[plugins]]
+repo = 'vim-airline/vim-airline'
+
+[[plugins]]
+repo = 'vim-airline/vim-airline-themes'
+
+[[plugins]]
+repo = 'sainnhe/gruvbox-material'
+
+[[plugins]]
+repo = 'ap/vim-css-color'
+
+###

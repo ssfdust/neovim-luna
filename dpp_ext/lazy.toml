@@ -1,0 +1,30 @@
+[[plugins]]
+repo = 'iamcco/markdown-preview.nvim'
+on_ft = ['markdown', 'pandoc.markdown', 'rmd']
+build = 'sh -c "cd app && yarn install"'
+
+### LSP Section
+[[plugins]]
+repo = 'neoclide/coc.nvim'
+rev = 'release'
+on_event = ['InsertEnter', 'CmdlineEnter', 'CursorHold']
+### LSP END
+
+### Snippet Section
+### Count: 2
+[[plugins]]
+repo = 'ssfdust/neosnippet-snippets'
+on_event = ['InsertEnter', 'CmdlineEnter']
+
+[[plugins]]
+repo = 'Shougo/neosnippet.vim'
+on_event = ['InsertEnter', 'CmdlineEnter']
+
+### Snippet END
+[[plugins]]
+repo = 'nvim-treesitter/nvim-treesitter'
+on_event = ['BufEnter', 'CmdlineEnter']
+
+[[plugins]]
+repo = 'Exafunction/codeium.vim'
+on_event = ['InsertEnter']
