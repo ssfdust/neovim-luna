@@ -72,7 +72,7 @@ export class Config extends BaseConfig {
         { path: "$BASE_DIR/dpp_ext/dpp/dpp.toml", lazy: false },
         { path: "$BASE_DIR/dpp_ext/merge.toml", lazy: false },
         { path: "$BASE_DIR/dpp_ext/denops.toml", lazy: true },
-        { path: "$BASE_DIR/dpp_ext/ddu.toml", lazy: true },
+        { path: "$BASE_DIR/dpp_ext/ddu/ddu.toml", lazy: true },
         { path: "$BASE_DIR/dpp_ext/lazy.toml", lazy: true },
       ].map((tomlFile) =>
         action.callback({

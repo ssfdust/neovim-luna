@@ -2,7 +2,6 @@
 repo = 'vim-denops/denops.vim'
 hook_source = '''
   let g:denops#debug = v:false
-  echom "121212"
 
   let g:denops#server#deno_args = [
       \   '-q',
@@ -12,13 +11,7 @@ hook_source = '''
   " NOTE: for Deno KV storage
   let g:denops#server#deno_args += ['--unstable-kv']
 
-  " NOTE: for profile
-  "let g:denops#server#deno_args += ['--inspect']
-
-  " NOTE: for denops-silicon
-  "let g:denops#server#deno_args += ['--unstable-ffi']
-
-  "let g:denops_server_addr = '127.0.0.1:32123'
+  " let g:denops_server_addr = '127.0.0.1:32123'
 '''
 
 [[plugins]]
