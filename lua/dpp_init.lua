@@ -42,11 +42,6 @@ function _exec_init_gitcmds(repo, branch)
     set.runtimepath:append(clone_path)
 end
 
-setenv("BASE_DIR", fn.fnamemodify(os.getenv('MYVIMRC'), ':h'));
-setenv("DPP_INSTALLER_LOG", dpp_home .. "/dpp-installer.log");
-_exec_init_gitcmds(dpp_repo, default_branch)
-_exec_init_gitcmds(dpp_lazy_repo, default_branch)
-
 -- 'path' would be init.lua's parent directory.
 function activate_dpp()
     -- Required:
@@ -111,4 +106,12 @@ function activate_dpp()
     end
 end
 
-activate_dpp()
+if os.getenv("NO_DPP_INIT") then
+    return
+else
+    setenv("BASE_DIR", fn.fnamemodify(os.getenv('MYVIMRC'), ':h'));
+    setenv("DPP_INSTALLER_LOG", dpp_home .. "/dpp-installer.log");
+    _exec_init_gitcmds(dpp_repo, default_branch)
+    _exec_init_gitcmds(dpp_lazy_repo, default_branch)
+    activate_dpp()
+end
