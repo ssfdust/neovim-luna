@@ -1,4 +1,4 @@
--- lua_add {{{
+-- lua_source {{{
 -----------------------------------------------------------
 -- Treesitter configuration file
 ----------------------------------------------------------
@@ -16,6 +16,11 @@ if not status_ok then
   return
 end
 
+vim.g.treesitter_ensure_installed = {
+    'bash', 'c', 'cpp', 'css', 'html', 'javascript', 'json', 'lua', 'python',
+    'rust', 'typescript', 'vim', 'yaml', 'nu'
+}
+
 -- Nu Language support
 local parser_config = nvim_treesitter_parsers.get_parser_configs()
 parser_config.nu = {
@@ -27,13 +32,15 @@ parser_config.nu = {
   filetype = "nu",
 }
 
+if os.getenv("NO_ENSURE_TREESITTER") then
+    return
+end
+
 -- See: https://github.com/nvim-treesitter/nvim-treesitter#quickstart
 nvim_treesitter.setup {
+  auto_install = false,
   -- A list of parser names, or "all"
-  ensure_installed = {
-    'bash', 'c', 'cpp', 'css', 'html', 'javascript', 'json', 'lua', 'python',
-    'rust', 'typescript', 'vim', 'yaml', 'nu'
-  },
+  ensure_installed = vim.g.treesitter_ensure_installed,
   -- Install parsers synchronously (only applied to `ensure_installed`)
   sync_install = true,
   highlight = {

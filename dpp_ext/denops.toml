@@ -1,18 +1,13 @@
 [[plugins]]
 repo = 'vim-denops/denops.vim'
-hook_source = '''
-  let g:denops#debug = v:false
+hooks_file = "$BASE_DIR/lua/plugins/denops.lua"
+# on_source = "vim-denops/denops-shared-server.vim"
 
-  let g:denops#server#deno_args = [
-      \   '-q',
-      \   '-A',
-      \ ]
-
-  " NOTE: for Deno KV storage
-  let g:denops#server#deno_args += ['--unstable-kv']
-
-  " let g:denops_server_addr = '127.0.0.1:32123'
-'''
+[[plugins]]
+repo = "vim-denops/denops-shared-server.vim"
+on_event = 'BufRead'
+depends = 'denops.vim'
+hooks_file = "$BASE_DIR/lua/plugins/denops-shared-server.lua"
 
 [[plugins]]
 repo = 'vim-denops/denops-startup-recorder.vim'

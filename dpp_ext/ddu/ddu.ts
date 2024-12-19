@@ -15,8 +15,6 @@ import { type Params as FilerParams } from "jsr:@shougo/ddu-ui-filer@~1.5.0";
 import type { Denops } from "jsr:@denops/std@~7.4.0";
 import * as fn from "jsr:@denops/std@~7.4.0/function";
 
-
-
 export class Config extends BaseConfig {
   override config(args: ConfigArguments): Promise<void> {
     args.setAlias("files", "source", "file_rg", "file_external");
@@ -206,9 +204,6 @@ export class Config extends BaseConfig {
               return Promise.resolve(ActionFlags.None);
             },
           },
-        },
-        word: {
-          defaultAction: "append",
         },
         deol: {
           defaultAction: "switch",
