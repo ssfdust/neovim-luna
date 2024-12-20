@@ -114,3 +114,5 @@ function main () {
     unset NO_ENSURE_TREESITTER
     inst_ts_plugins
 }
+
+main
