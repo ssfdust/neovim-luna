@@ -1,0 +1,116 @@
+#!/bin/bash
+
+# It's the core of the neovim configuraion
+#
+# All the plugins are managed by dpp.vim plugin manager. This function is used
+# to bootstrap the dpp plugin manager. Make dpp plugin manager itself to be
+# usable.
+#
+# In this step, most of the plugins aren't downloaded or loaded yet. We need to
+# manually install the plugins later. After the neovim started but before the
+# first command to be executed, the denops and dpp are added to runtimepath
+# but not sourced, so we need to start denops manually to wait for the end of
+# dpp initilization.
+function init_dpp_inst() {
+    nvim --headless \
+        +"call denops#server#start()" \
+        +"call denops#server#wait()" \
+        +'autocmd User Dpp:makeStatePost qall'
+}
+
+# Install the plugins in dpp plugin manager. It won't exit utill all the plugins
+# are installed, this function prevent incompleted or bad plugins during the
+# initilization.
+#
+# The installation depends on dpp and denops.
+function inst_dpp_plugins () {
+    while :;
+    do
+        notinstalled=$(
+        nvim --headless \
+            +"call denops#server#start()" \
+            +"call denops#server#wait()" \
+            +"echo dpp#sync_ext_action('installer', 'getNotInstalled')" \
+            +qall 2>&1
+        )
+        if [ "$notinstalled" != "[]" ];then
+            nvim --headless \
+                +"call denops#server#start()" \
+                +"call denops#server#wait()" \
+                +'autocmd User Dpp:makeStatePost qall' \
+                +"call dpp#async_ext_action('installer', 'install')"
+        else
+            break
+        fi
+    done
+fi
+
+# Install denops-shared-server plugin for neovim
+#
+# This plugin reduce the startup time of denops. Since the plugin is lazyload,
+# we have to source the plugin by ourself. This command is not that important
+# because this server is automaticly installed after neovim starts.
+function setup_denops_server () {
+    nvim --headless \
+        +"call denops#server#start()" \
+        +"call denops#server#wait()" \
+        +"call dpp#source('denops-shared-server.vim')" \
+        +"call denops_shared_server#install()" \
+        +qall
+}
+
+# Install Language Service Protocol plugin (coc.nvim) for neovim
+#
+# This function prevents incompleted installation for coc.nvim
+function inst_coc_plugins () {
+    coc_plugins=$(nvim --headless +"echo coc_global_extensions" +qa 2>&1 | sed "s/'/\"/g" | jq -r .[])
+
+    while :;
+    do
+        need_reinstall=0
+        nvim --headless +"call coc#rpc#request('installExtensions', g:coc_global_extensions)" +qall
+        for plugin in ${coc_plugins[@]}
+        do
+            if [ ! -d ~/.config/coc/extensions/"node_modules/${plugin}" ];then
+                need_reinstall=1
+            fi
+        done
+        if [ "$need_reinstall" = "0" ];then
+            break
+        fi
+    done
+}
+
+# Install the treesitter plugins
+#
+# This function prevents incompleted treesitter plugins.
+#
+# When neovim starts with dpp plugins installed, it will install the default
+# treesitter plugins enabled for neovim. Treesitter plugin itself doesn't provide
+# any way to disable this behavior. The configuraion introduces the `NO_ENSURE_TREESITTER`
+# environment.
+#
+# `NO_ENSURE_TREESITTER`: When this environment is set, the default plugin list
+# won't be installed on neovim startup.
+function inst_ts_plugins () {
+    while :;
+    do
+        ts_inst_log=$(nvim --headless +TSUpdateSync +qall 2>&1 | grep -v 'up-to-date')
+        if [ "$ts_inst_log" = "" ];then
+            break
+        fi
+    done
+}
+
+function main () {
+    # Disable automatic installation for treesitter.
+    export NO_ENSURE_TREESITTER=1
+    init_dpp_inst
+    inst_dpp_plugins
+    setup_denops_server
+    inst_coc_plugins
+
+    # Enable automatic installation for treesitter.
+    unset NO_ENSURE_TREESITTER
+    inst_ts_plugins
+}

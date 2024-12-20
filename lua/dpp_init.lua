@@ -69,19 +69,6 @@ function activate_dpp()
                 dpp.make_state(dpp_home, dpp_ts)
             end,
         })
-        autocmd("User", {
-            pattern = "Dpp:makeStatePost",
-            callback = function()
-                vim.g.dpp_make_state_done = 1
-                vim.notify("dpp make_state() is done")
-                vim.defer_fn(
-                    function() 
-                        vim.g.dpp_make_state_done = nil
-                        vim.notify("dpp make_state tag is reset")
-                    end, 
-                3000)
-            end,
-        })
     else
         autocmd("BufWritePost", {
             pattern = {"*.lua", "*.vim", "*.toml", "*.ts", "vimrc", ".vimrc"},
@@ -90,20 +77,20 @@ function activate_dpp()
                 dpp_check_files()
             end,
         })
-        autocmd("User", {
-            pattern = "Dpp:makeStatePost",
-            callback = function()
-                vim.g.dpp_make_state_done = 1
-                vim.notify("dpp make_state() is done")
-                vim.defer_fn(
-                    function() 
-                        vim.g.dpp_make_state_done = nil
-                        vim.notify("dpp make_state tag is reset")
-                    end, 
-                3000)
-            end,
-        })
     end
+    autocmd("User", {
+        pattern = "Dpp:makeStatePost",
+        callback = function()
+            vim.g.dpp_make_state_done = 1
+            vim.notify("dpp make_state() is done")
+            vim.defer_fn(
+                function() 
+                    vim.g.dpp_make_state_done = nil
+                    vim.notify("dpp make_state tag is reset")
+                end, 
+            3000)
+        end,
+    })
 end
 
 if os.getenv("NO_DPP_INIT") then

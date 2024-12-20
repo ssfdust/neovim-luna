@@ -10,3 +10,10 @@ Dependencies
 * fortune-mod
 * ripgrep
 * proxychains (option)
+
+install
+===========
+
+```bash
+./scripts/nvim-init
+```
