@@ -1,0 +1,16 @@
+- hosts: all
+  gather_facts: true
+  tasks:
+    - name: Delete old neovim configuration
+      file:
+        path: ~/.config/nvim
+        state: absent
+    - name: Install neovim
+      synchronize:
+        src: "{{ playbook_dir | dirname + '/' }}"
+        dest: ~/.config/nvim
+    - name: Initilize neovim
+      script: nvim-init
+      args:
+        executable: /bin/bash
+

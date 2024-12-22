@@ -69,3 +69,4 @@ opt.fileencodings = "utf-8,gb2312,gb18030,gbk,ucs-bom,cp936,latin1"
 -----------------------------------------------------------
 g.mapleader = ' '                      -- Global leader key
 g.maplocalleader = ','                 -- Local leader key
+g.loaded_gtags_cscope = '1'            -- disable gtags-cscope plugin
