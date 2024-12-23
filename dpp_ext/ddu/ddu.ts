@@ -51,7 +51,9 @@ export class Config extends BaseConfig {
           }) => {
             await fn.win_execute(args.denops, args.previewWinId, "normal! zt");
           },
+          startFilter: true,
           previewFloating: true,
+          // split: true,
           previewFloatingBorder: "single",
           //previewSplit: "no",
           updateTime: 0,
