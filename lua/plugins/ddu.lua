@@ -10,7 +10,7 @@ local key_map_opts = { noremap = true, silent = true }
 
 set_keymap(
     'n',
-    ' ff',
+    '<Space>ff',
     function()
         local ddu_start = vim.fn['ddu#start']
         ddu_start({
@@ -35,7 +35,7 @@ set_keymap(
 
 set_keymap(
     'n',
-    ' fh',
+    '<Space>fh',
     function()
         local ddu_start = vim.fn['ddu#start']
         ddu_start({
@@ -79,7 +79,7 @@ set_keymap(
 
 set_keymap(
     'n',
-    ' fg',
+    '<Space>fg',
     function()
         local keyword = vim.fn.input("Search key: ")
         local ddu_start = vim.fn['ddu#start']
@@ -91,6 +91,65 @@ set_keymap(
                     name = 'rg',
                     params = {
                         input = keyword,
+                    }
+                },
+            },
+            uiParams = {
+                ff = {
+                    startFilter = true,
+                    previewFloating = true,
+                    split = 'floating'
+                }
+            }
+        })
+    end,
+    key_map_opts    
+)
+
+set_keymap(
+    'n',
+    '<Space>fd',
+    function()
+        local ddu_start = vim.fn['ddu#start']
+        local keyword = vim.fn.expand('<cword>')
+        ddu_start({
+            name = 'gtags',
+            ui = 'ff',
+            sources = {
+                {
+                    name = 'gtags',
+                    params = {
+                        input = keyword,
+                    }
+                },
+            },
+            uiParams = {
+                ff = {
+                    startFilter = true,
+                    previewFloating = true,
+                    split = 'floating'
+                }
+            }
+        })
+    end,
+    key_map_opts    
+)
+
+set_keymap(
+    'n',
+    '<Space>fr',
+    function()
+        local ddu_start = vim.fn['ddu#start']
+        local keyword = vim.fn.expand('<cword>')
+        ddu_start({
+            name = 'gtags',
+            ui = 'ff',
+            sources = {
+                {
+                    name = 'gtags',
+                    params = {
+                        input = keyword,
+                        args = '-r',
                     }
                 },
             },

@@ -29,7 +29,9 @@ dashboard.section.footer.val = fortune
 dashboard.config.opts.noautocmd = false
 dashboard.section.buttons.val = {
     dashboard.button("e", "  New file", "<Cmd>ene <CR>"),
-    dashboard.button("SPC f f", "  Find file", "<Cmd>Ddu file_rec -ui-param-ff-startFilter=v:true -name=file -ui-param-ff-previewFloating=v:true -ui-param-ff-split=floating<CR>"),
+    dashboard.button("SPC f h", "  Find file"),
+    dashboard.button("SPC f v", "  Open File Manager"),
+    dashboard.button("SPC f g", "  Find word"),
     dashboard.button("SPC s l", "  Open local session", "<Cmd>source .session<CR>"),
     dashboard.button( "q", "  Quit NVIM" , "<Cmd>qa<CR>"),
 }

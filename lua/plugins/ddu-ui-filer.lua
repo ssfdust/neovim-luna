@@ -10,7 +10,7 @@ local key_map_opts = { noremap = true, silent = true }
 
 set_keymap(
     'n',
-    ' fl',
+    '<Space>fl',
     function()
         local ddu_start = vim.fn['ddu#start']
         ddu_start({
@@ -37,7 +37,7 @@ set_keymap(
 )
 set_keymap(
     'n',
-    ' fv',
+    '<Space>fv',
     function()
         local ddu_start = vim.fn['ddu#start']
         ddu_start({

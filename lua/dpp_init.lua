@@ -91,6 +91,19 @@ function activate_dpp()
             3000)
         end,
     })
+    autocmd("BufWritePost", {
+        pattern = "*.toml",
+        callback = function()
+            local dpp_sync_ext_action = vim.fn['dpp#sync_ext_action']
+            local dpp_async_ext_action = vim.fn['dpp#async_ext_action']
+            local not_installed = dpp_sync_ext_action('installer', 'getNotInstalled');
+            if type(next(not_installed)) ~= 'nil' then
+                dpp_async_ext_action('installer', 'install')
+            end
+        end,
+    })
+    vim.cmd("filetype indent plugin on")
+    vim.cmd("syntax on")
 end
 
 if os.getenv("NO_DPP_INIT") then
@@ -102,3 +115,4 @@ else
     _exec_init_gitcmds(dpp_lazy_repo, default_branch)
     activate_dpp()
 end
+

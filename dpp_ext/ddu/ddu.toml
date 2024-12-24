@@ -91,4 +91,5 @@ on_source = 'ddu.vim'
 [[plugins]]
 repo = 'kaz-oji/ddu-source-gtags'
 on_source = 'ddu.vim'
+
 ### DDU END
