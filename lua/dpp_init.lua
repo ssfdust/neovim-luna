@@ -37,6 +37,9 @@ function _exec_init_gitcmds(repo, branch)
         }
         for _, cmd in ipairs(git_cmds) do
             fn.system(cmd)
+            while (vim.v.shell_error ~= 0) do
+                fn.system(cmd)
+            end
         end
     end
     set.runtimepath:append(clone_path)

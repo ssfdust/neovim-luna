@@ -1,0 +1,13 @@
+#!/bin/sh
+setenforce 0
+dnf update -y
+dnf install -y \
+    gcc npm neovim nodejs python3-neovim \
+    python3-pygments global fortune-mod \
+    ripgrep git global-ctags jq unzip ctags
+
+cat > /etc/profile.d/60-gtags.sh <<EOF
+export GTAGSLABEL=pygments
+export GTAGSCONF=/etc/gtags.conf
+EOF
+sed -i 's#ctagscom=[^:]\+#ctagscom=/usr/bin/ctags#' /etc/gtags.conf

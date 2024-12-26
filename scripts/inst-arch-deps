@@ -1,0 +1,13 @@
+#!/bin/sh
+pacman -Syu --noconfirm
+pacman -S \
+    gcc npm neovim nodejs python-neovim \
+    python-pygments global fortune-mod \
+    ripgrep git deno jq ctags \
+    --noconfirm --needed
+
+cat > /etc/profile.d/60-gtags.sh <<EOF
+export GTAGSLABEL=pygments
+export GTAGSCONF=/usr/share/gtags/gtags.conf
+EOF
+sed -i 's#ctagscom=[^:]\+#ctagscom=/usr/bin/ctags#' /usr/share/gtags/gtags.conf

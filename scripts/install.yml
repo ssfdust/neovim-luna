@@ -1,14 +1,30 @@
 - hosts: all
   gather_facts: true
   tasks:
+    - name: Ensure xdg configuration directory
+      file:
+        path: ~/.config
+        state: directory
     - name: Delete old neovim configuration
       file:
         path: ~/.config/nvim
         state: absent
-    - name: Install neovim
-      synchronize:
-        src: "{{ playbook_dir | dirname + '/' }}"
+    - name: Link neovim configuration
+      file:
+        src: ~/workspace
         dest: ~/.config/nvim
+        state: link
+    - name: Install system dependencies for Archlinux
+      become: true
+      script: inst-arch-deps
+      when: ansible_distribution == "Archlinux"
+    - name: Install system dependencies for Fedora
+      become: true
+      script: inst-fedora-deps
+      when: ansible_distribution == "Fedora"
+    - name: Install deno for Fedora
+      shell: curl -fsSL https://deno.land/x/install/install.sh | sh -s -- -y
+      when: ansible_distribution == "Fedora"
     - name: Initilize neovim
       script: nvim-init
       args:
