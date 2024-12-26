@@ -1,7 +1,12 @@
 #!/bin/bash
 
-exec 1> /tmp/nvim-init.log
-exec 2>> /tmp/nvim-init.log
+logfile=$(mktemp --suffix=.nvim-log)
+
+exec 1> $logfile
+exec 2>> $logfile
+set -x
+
+source ~/.bashrc
 
 # It's the core of the neovim configuraion
 #
@@ -15,6 +20,9 @@ exec 2>> /tmp/nvim-init.log
 # but not sourced, so we need to start denops manually to wait for the end of
 # dpp initilization.
 function init_dpp_inst() {
+    if [ -d ~/.local/share/nvim/dpp ];then
+        return
+    fi
     nvim --headless \
         +"call denops#server#start()" \
         +"call denops#server#wait()" \
@@ -27,7 +35,7 @@ function init_dpp_inst() {
 #
 # The installation depends on dpp and denops.
 function inst_dpp_plugins () {
-    set -x
+    mkdir ~/.config/coc
     while :;
     do
         notinstalled=$(

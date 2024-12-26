@@ -5,8 +5,12 @@ Vagrant.configure("2") do |config|
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://vagrantcloud.com/search.
 
-  config.vm.define :neovim do |node|
-    node.vm.box = "ssfdust/archlinux"
+  config.vm.define :neovim, primary: true do |node|
+    node.vm.box = "boxen/archlinux-rolling"
+  end
+
+  config.vm.define :fedora_nvim, autostart: false do |node|
+    node.vm.box = "boxen/fedora-41"
   end
 
   # Disable automatic box update checking. If you disable this, then
