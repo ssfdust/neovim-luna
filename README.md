@@ -58,13 +58,13 @@ nvim +'autocmd User Dpp:makeStatePost qall'
 
 ##### Install Plugins during the second start
 
-Start neovim with the denops server, then call 
+Start neovim with the denops server
 
 ```
 nvim +"call denops#server#start()"
 ```
 
-Manually install plugins in neovim
+Then install plugins in neovim
 
 ```
 :call dpp#async_ext_action('installer', 'install')
