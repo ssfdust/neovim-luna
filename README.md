@@ -26,6 +26,10 @@ curl -fsSL https://deno.land/x/install/install.sh | sh -s -- -y
 
 For gtags to work, you need to edit `gtags.conf`. Usually it locates at `/usr/share/gtags/gtags.conf` or `/etc/gtags.conf`. Ensure all the `ctagscom` refers to the right location for ctags in your system.
 
+```
+sed -i 's#ctagscom=[^:]\+#ctagscom=/usr/bin/ctags#' /path/to/gtags.conf
+```
+
 Then, you need to export the following environments `GTAGSCONF` and `GTAGSLABEL`. Add the following code to your `~/.bashrc`
 
 ```bash
