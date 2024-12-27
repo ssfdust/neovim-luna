@@ -7,14 +7,13 @@ Dependencies
 * deno
 * fortune-mod
 * gcc
-* global
-* jq (make)
-* nodejs
 * npm
 * python3
 * python-neovim
-* python-pygments
 * ripgrep
+* jq (make)
+* global (optional)
+* python-pygments (optional)
 
 ### Deno
 
