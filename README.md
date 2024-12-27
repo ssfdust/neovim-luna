@@ -1,5 +1,19 @@
-Neovim
+Neovim Lua
 =============
+
+Features and Screenshots
+------------
+
+* Code autocompletion with LSP and AI (powered by Codeium)
+* File Manager
+* Terminal interface
+* Git management
+* Floating window
+
+<img src="./assets/neovim-homepage.png" height="300" width="550" />
+<img src="./assets/neovim-create-file.png" height="300" width="550" />
+<img src="./assets/neovim-file-hist.png" height="300" width="550" />
+<img src="./assets/neovim-git.png" height="300" width="550" />
 
 Dependencies
 -----------
