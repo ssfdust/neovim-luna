@@ -23,7 +23,6 @@ g.gruvbox_material_visual = 'reverse'
 -----------------------------------------------------------
 local ok, _ = pcall(vim.cmd, "colorscheme " .. colorscheme)
 if not ok then
-    vim.notify("colorscheme " .. colorscheme .. " not found!")
     pcall(vim.cmd, "colorscheme " .. "slate")
     return
 end

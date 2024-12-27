@@ -16,10 +16,14 @@ if not status_ok then
   return
 end
 
-vim.g.treesitter_ensure_installed = {
-    'bash', 'c', 'cpp', 'css', 'html', 'javascript', 'json', 'lua', 'python',
-    'rust', 'typescript', 'vim', 'yaml', 'nu'
-}
+if (vim.fn.executale('gcc') == 1) then
+    vim.g.treesitter_ensure_installed = {
+        'bash', 'c', 'cpp', 'css', 'html', 'javascript', 'json', 'lua', 'python',
+        'rust', 'typescript', 'vim', 'yaml', 'nu'
+    }
+else
+    vim.g.treesitter_ensure_installed = {}
+end
 
 -- Nu Language support
 local parser_config = nvim_treesitter_parsers.get_parser_configs()

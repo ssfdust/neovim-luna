@@ -5,15 +5,15 @@ Dependencies
 -----------
 
 * deno
-* fortune-mod
-* gcc
 * npm
 * python3
 * python-neovim
 * ripgrep
-* jq (make)
-* global (optional)
-* python-pygments (optional)
+* jq (make, headless-install script requires)
+* fortune-mod (optional, startup message)
+* gcc (optional, treesitter support)
+* global (optional, gtags support)
+* python-pygments (optional, gtags support)
 
 ### Deno
 
@@ -33,9 +33,41 @@ export GTAGSLABEL=pygments
 export GTAGSCONF=/path/to/gtags.conf
 ```
 
-install
+Install
 -----------
 
-```bash
-./scripts/nvim-init
 ```
+git clone https://codeberg.org/ssfdust/neovim-lua.git ~/.config/nvim
+```
+
+#### Automatic Initilization
+
+```bash
+bash ~/.config/nvim/scripts/headless-install
+```
+
+#### Manually
+
+##### First time startup
+
+It will initilize dpp configuration at ~/.local/sahre/nvim/dpp
+
+```
+nvim +'autocmd User Dpp:makeStatePost qall'
+```
+
+##### Install Plugins during the second start
+
+Start neovim with the denops server, then call 
+
+```
+nvim +"call denops#server#start()"
+```
+
+Manually install plugins in neovim
+
+```
+:call dpp#async_ext_action('installer', 'install')
+```
+
+Restart neovim

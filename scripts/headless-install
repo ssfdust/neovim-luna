@@ -2,6 +2,7 @@
 
 logfile=$(mktemp --suffix=.nvim-log)
 
+echo "Logs are redirected to $logfile"
 exec 1> $logfile
 exec 2>> $logfile
 set -x
