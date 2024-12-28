@@ -90,10 +90,6 @@ Then install plugins in neovim
 
 Restart neovim
 
-Sure! Here’s a revised version of the acknowledgment that includes your specified phrase:
-
----
-
 Acknowledgments
 ---------------
 
