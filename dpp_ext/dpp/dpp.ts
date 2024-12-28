@@ -10,6 +10,7 @@ import {
 } from "jsr:@shougo/dpp-vim@~4.1.0/config";
 import { Protocol } from "jsr:@shougo/dpp-vim@~4.1.0/protocol";
 import { mergeFtplugins } from "jsr:@shougo/dpp-vim@~4.1.0/utils";
+import { globals } from "jsr:@denops/std/variable";
 
 import type {
   Ext as TomlExt,
@@ -35,6 +36,7 @@ export class Config extends BaseConfig {
     contextBuilder: ContextBuilder;
     basePath: string;
   }): Promise<ConfigReturn> {
+    const hubsite = await globals.get(args.denops, "dpp_hubsite");
     args.contextBuilder.setGlobal({
       extParams: {
         installer: {
@@ -42,6 +44,11 @@ export class Config extends BaseConfig {
           logFilePath: "$DPP_INSTALLER_LOG",
           githubAPIToken: Deno.env.get("GITHUB_API_TOKEN"),
         },
+      },
+      protocolParams: {
+          git: {
+              defaultHubSite: `${hubsite || "github.com"}`,
+          },
       },
       protocols: ["git"],
     });

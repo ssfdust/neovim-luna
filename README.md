@@ -1,4 +1,4 @@
-Neovim Lua
+Neovim Luna
 =============
 
 Features and Screenshots
@@ -89,3 +89,16 @@ Then install plugins in neovim
 ```
 
 Restart neovim
+
+Sure! Here’s a revised version of the acknowledgment that includes your specified phrase:
+
+---
+
+Acknowledgments
+---------------
+
+The Neovim Luna is highly inspired by [SpaceVim](https://spacevim.org/) and [Shougo's dotfiles](https://github.com/Shougo/shougo-s-github), and their innovative ideas and dedication to enhancing the Neovim experience have been a significant source of inspiration for this project. Thank you for your hard work and for paving the way for developers like me to build upon your remarkable contributions.
+
+--- 
+
+Feel free to adjust it further if needed!

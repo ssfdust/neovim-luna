@@ -8,7 +8,7 @@
 local denops_test_client = vim.uv.new_tcp()
 local host = vim.g.denops_server_addr:match('([^:]+)')
 local port = vim.g.denops_server_addr:match(':([^:]+)')
-
+print(11111)
 denops_test_client:connect(
     host,
     port,

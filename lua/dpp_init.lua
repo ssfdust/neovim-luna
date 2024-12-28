@@ -18,12 +18,25 @@ local dpp_lazy_repo = "Shougo/dpp-ext-lazy"
 local default_branch = "main"
 local dpp_ts = fn.fnamemodify(os.getenv('MYVIMRC'), ':h') .. '/dpp_ext/dpp/dpp.ts'
 
+-- set default hub site
+vim.g.dpp_hubsite = os.getenv("LUNA_HUBSITE") or "github.com"
+
+function _get_plugin_path(url)
+    local path = url:gsub("%.git$", "")
+
+    path = path:gsub('^https:/+', '')
+    path = path:gsub('^git@', '')
+    path = path:gsub('/https:/+', '/')
+
+    return path
+end
+
 function _exec_init_gitcmds(repo, branch)
-    local gitsrc = "https://github.com/" .. repo .. ".git"
-    local clone_path = dpp_home .. '/repos/github.com/' .. repo
+    local gitsrc = "https://" .. vim.g.dpp_hubsite .. '/' .. repo .. ".git"
+    local clone_path = dpp_home .. '/repos/' .. _get_plugin_path(gitsrc)
 
     if fn.empty(fn.glob(clone_path)) > 0 then
-        print("Cloning repo " .. gitsrc .. " with branch " .. branch  .. " to " .. clone_path)
+        print("Cloning repo " .. gitsrc .. " with branch " .. branch  .. " to " .. clone_path .. " using " .. "git")
         local git_cmds = {
             {"git", "init", "-q", clone_path},
             {"git", "-C", clone_path, "config", "fsck.zeroPaddedFilemode", "ignore"},
@@ -58,9 +71,10 @@ function activate_dpp()
             "Shougo/dpp-ext-installer",
             "Shougo/dpp-ext-packspec",
             "Shougo/dpp-ext-toml",
-            "Shougo/dpp-protocol-git",
+            "ssfdust/dpp-protocol-git",
             "vim-denops/denops.vim",
         }
+        _exec_init_gitcmds('ssfdust/dpp-protocol-git', 'acceleration-url')
         for _, repo in ipairs(plugins) do
             _exec_init_gitcmds(repo, default_branch)
         end

@@ -11,12 +11,11 @@ if not status_ok then
   return
 end
 
-local status_ok, nvim_treesitter_parsers = pcall(require, 'nvim-treesitter.parsers')
-if not status_ok then
+local status_ok, nvim_treesitter_parsers = pcall(require, 'nvim-treesitter.parsers') if not status_ok then
   return
 end
 
-if (vim.fn.executale('gcc') == 1) then
+if (vim.fn.executable('gcc') == 1) then
     vim.g.treesitter_ensure_installed = {
         'bash', 'c', 'cpp', 'css', 'html', 'javascript', 'json', 'lua', 'python',
         'rust', 'typescript', 'vim', 'yaml', 'nu'
@@ -40,6 +39,12 @@ if os.getenv("NO_ENSURE_TREESITTER") then
     return
 end
 
+if (vim.g.dpp_hubsite ~= nil and vim.g.dpp_hubsite ~= 'github.com') then
+    for _, config in pairs(require("nvim-treesitter.parsers").get_parser_configs()) do
+      config.install_info.url = config.install_info.url:gsub("https://github.com/", "https://" .. vim.g.dpp_hubsite .. '/')
+    end
+end
+
 -- See: https://github.com/nvim-treesitter/nvim-treesitter#quickstart
 nvim_treesitter.setup {
   auto_install = false,
@@ -52,4 +57,5 @@ nvim_treesitter.setup {
     enable = true,
   },
 }
+
 -- }}}

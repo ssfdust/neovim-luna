@@ -16,4 +16,5 @@ repo = 'Shougo/dpp-ext-installer'
 repo = 'Shougo/dpp-ext-packspec'
 
 [[plugins]]
-repo = 'Shougo/dpp-protocol-git'
+repo = 'ssfdust/dpp-protocol-git'
+rev = 'acceleration-url'
