@@ -71,10 +71,9 @@ function activate_dpp()
             "Shougo/dpp-ext-installer",
             "Shougo/dpp-ext-packspec",
             "Shougo/dpp-ext-toml",
-            "ssfdust/dpp-protocol-git",
+            "Shougo/dpp-protocol-git",
             "vim-denops/denops.vim",
         }
-        _exec_init_gitcmds('ssfdust/dpp-protocol-git', 'acceleration-url')
         for _, repo in ipairs(plugins) do
             _exec_init_gitcmds(repo, default_branch)
         end
