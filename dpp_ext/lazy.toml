@@ -1,7 +1,9 @@
 [[plugins]]
-repo = 'iamcco/markdown-preview.nvim'
-on_ft = ['markdown', 'pandoc.markdown', 'rmd']
-build = 'sh -c "cd app && yarn install"'
+repo = 'toppair/peek.nvim'
+on_cmd = 'MdPreview'
+on_lua = 'peek'
+hooks_file = "$BASE_DIR/lua/plugins/peek.lua"
+extAttrs = { installerBuild = 'deno task --quiet build:fast' }
 
 ### LSP Section
 [[plugins]]
@@ -35,4 +37,4 @@ hooks_file = "$BASE_DIR/lua/plugins/codeium.lua"
 [[plugins]]
 repo = 'Shougo/cmdline.vim'
 on_source = ['ddu.vim']
-# hooks_file = "$BASE_DIR/lua/plugins/cmdline.lua"
+hooks_file = "$BASE_DIR/lua/plugins/cmdline.lua"

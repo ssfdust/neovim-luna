@@ -8,7 +8,7 @@ hooks_file = '$BASE_DIR/lua/plugins/ddu.lua'
 [[plugins]]
 repo = 'Shougo/ddu-commands.vim'
 depends = 'ddu.vim'
-on_cmd = 'Ddu'
+on_cmd = ['Ddu']
 
 [[plugins]]
 repo = 'Shougo/ddu-ui-ff'

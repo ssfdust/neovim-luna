@@ -8,13 +8,7 @@
 local set_keymap = vim.keymap.set             -- Set key map
 local key_map_opts = { noremap = true, silent = true }
 
-set_keymap('c', '<CR>',
-    function()
-        local cmdline_disable = vim.fn['cmdline#disable']
-        cmdline_disable()
-    end,
-    key_map_opts
-)
+set_keymap('c', '<CR>', '<Cmd>call cmdline#disable()<CR><CR>', key_map_opts)
 
 -- }}}
 

@@ -4,11 +4,13 @@ Neovim Luna
 Features and Screenshots
 ------------
 
-* Code autocompletion with LSP and AI (powered by Codeium)
-* File Manager
-* Terminal interface
-* Git management
-* Floating window
+* Plugin manager (by [@dpp.vim](https://github.com/Shougo/dpp.vim))
+* Code autocompletion with LSP (by [@coc.nvim](https://github.com/neoclide/coc.nvim)) and AI (by [@Codeium](https://codeium.com/))
+* File Manager (by [@ddu-ui-filer](https://github.com/Shougo/ddu-ui-filer))
+* Markdown preview (by [@peek.nvim](https://github.com/toppair/peek.nvim))
+* Terminal interface (by [@deol.nvim](https://github.com/Shougo/deol.nvim))
+* Git management (by [@vim-fugitive](https://github.com/tpope/vim-fugitive))
+* Custom github site, which is very useful when you experience bad network when connecting to github.
 
 <img src="./assets/neovim-homepage.png" height="300" width="550" />
 <img src="./assets/neovim-create-file.png" height="300" width="550" />
@@ -20,8 +22,6 @@ Dependencies
 
 * deno
 * npm
-* python3
-* python-neovim
 * ripgrep
 * jq (make, headless-install script requires)
 * fortune-mod (optional, startup message)
