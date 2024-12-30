@@ -44,4 +44,4 @@ on_event = ['InsertEnter']
 
 [[plugins]]
 repo = 'tpope/vim-fugitive'
-on_cmd = 'G'
+on_cmd = ['G', 'G*']
