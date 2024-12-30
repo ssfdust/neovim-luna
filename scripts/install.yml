@@ -26,7 +26,7 @@
       shell: curl -fsSL https://deno.land/x/install/install.sh | sh -s -- -y
       when: ansible_distribution == "Fedora"
     - name: Initilize neovim
-      script: nvim-init
+      script: headless-install
       args:
         executable: /bin/bash
 

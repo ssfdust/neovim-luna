@@ -122,9 +122,12 @@ function activate_dpp()
     vim.cmd("syntax on")
 end
 
-if os.getenv("NO_DPP_INIT") then
+if os.getenv("NO_LUNA_INIT") then
     return
 else
+    local dpp_last_repo_path_save = dpp_home .. '.luna_dpp_repo_path'
+    local current_dpp_repo_path = dpp_home .. '/' .. _get_plugin_path(vim.g.dpp_hubsite .. '/' .. dpp_repo)
+    local last_dpp_repo_path = io.open(dpp_last_repo_path_save)
     setenv("BASE_DIR", fn.fnamemodify(os.getenv('MYVIMRC'), ':h'));
     setenv("DPP_INSTALLER_LOG", dpp_home .. "/dpp-installer.log");
     _exec_init_gitcmds(dpp_repo, default_branch)

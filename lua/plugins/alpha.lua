@@ -20,12 +20,12 @@ dashboard.section.header.val = {
     [[ \/_/\/_/\/____/\/___/  \/__/    \/_/\/_/\/_/\/_/]],
 }
 
-if vim.fn.executable('fortune') == 1 then
-    local handle = io.popen('fortune')
-    local fortune = handle:read("*a")
-    handle:close()
-    dashboard.section.footer.val = fortune
-end
+-- if vim.fn.executable('fortune') == 1 then
+--     local handle = io.popen('fortune')
+--     local fortune = handle:read("*a")
+--     handle:close()
+--     dashboard.section.footer.val = fortune
+-- end
 
 dashboard.config.opts.noautocmd = false
 dashboard.section.buttons.val = {

@@ -1,18 +1,12 @@
 ### Extra Section
 ### Count: 7
 [[plugins]]
-repo = 'tpope/vim-fugitive'
-
-[[plugins]]
 repo = 'airblade/vim-rooter'
 hooks_file = "$BASE_DIR/lua/plugins/rooter.lua"
 
 [[plugins]]
 repo = 'antoyo/vim-licenses'
 hooks_file = "$BASE_DIR/lua/plugins/licenses.lua"
-
-[[plugins]]
-repo = 'lilydjwg/fcitx.vim'
 
 [[plugins]]
 repo = 'Shougo/deol.nvim'
@@ -28,12 +22,12 @@ repo = 'nvim-tree/nvim-web-devicons'
 repo = 'goolord/alpha-nvim'
 hooks_file = "$BASE_DIR/lua/plugins/alpha.lua"
 
-[[plugins]]
-repo = 'vim-airline/vim-airline'
-hooks_file = "$BASE_DIR/lua/plugins/airline.lua"
-
-[[plugins]]
-repo = 'vim-airline/vim-airline-themes'
+# [[plugins]]
+# repo = 'vim-airline/vim-airline'
+# hooks_file = "$BASE_DIR/lua/plugins/airline.lua"
+# 
+# [[plugins]]
+# repo = 'vim-airline/vim-airline-themes'
 
 [[plugins]]
 repo = 'sainnhe/gruvbox-material'
