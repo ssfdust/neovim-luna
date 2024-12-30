@@ -1,4 +1,4 @@
--- lua_add {{{
+-- lua_source {{{
 -----------------------------------------------------------
 -- Alpha Startup configuration file
 -----------------------------------------------------------
@@ -7,9 +7,11 @@
 -- url: https://github.com/goolord/alpha-nvim
 
 -- See: :help alpha.txt
+
+local autocmd = vim.api.nvim_create_autocmd   -- Create autocommand
+
 local alpha = require('alpha')
 local dashboard = require('alpha.themes.dashboard')
-
 
 dashboard.section.header.val = {
     [[                               __                ]],
@@ -20,12 +22,20 @@ dashboard.section.header.val = {
     [[ \/_/\/_/\/____/\/___/  \/__/    \/_/\/_/\/_/\/_/]],
 }
 
--- if vim.fn.executable('fortune') == 1 then
---     local handle = io.popen('fortune')
---     local fortune = handle:read("*a")
---     handle:close()
---     dashboard.section.footer.val = fortune
--- end
+autocmd("User", {
+    pattern = "AlphaReady",
+    callback = function()
+        vim.defer_fn(function()
+            if vim.fn.executable('fortune') == 1 then
+                local handle = io.popen('fortune')
+                local fortune = handle:read("*a")
+                handle:close()
+                dashboard.section.footer.val = fortune
+                vim.cmd('AlphaRedraw')
+            end
+        end, 5)
+    end,
+})
 
 dashboard.config.opts.noautocmd = false
 dashboard.section.buttons.val = {

@@ -45,3 +45,8 @@ on_event = ['InsertEnter']
 [[plugins]]
 repo = 'tpope/vim-fugitive'
 on_cmd = ['G', 'G*']
+
+[[plugins]]
+repo = 'nvim-lualine/lualine.nvim'
+on_event = ['AlphaClosed', 'BufRead', 'BufNewFile']
+hooks_file = "$BASE_DIR/lua/plugins/lualine.lua"

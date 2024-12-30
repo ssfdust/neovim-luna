@@ -11,7 +11,6 @@ hooks_file = "$BASE_DIR/lua/plugins/licenses.lua"
 [[plugins]]
 repo = 'Shougo/deol.nvim'
 hooks_file = "$BASE_DIR/lua/plugins/deol.lua"
-
 ### Extra End
 ### UI Section
 ### Count: 7
@@ -22,17 +21,11 @@ repo = 'nvim-tree/nvim-web-devicons'
 repo = 'goolord/alpha-nvim'
 hooks_file = "$BASE_DIR/lua/plugins/alpha.lua"
 
-# [[plugins]]
-# repo = 'vim-airline/vim-airline'
-# hooks_file = "$BASE_DIR/lua/plugins/airline.lua"
-# 
-# [[plugins]]
-# repo = 'vim-airline/vim-airline-themes'
-
 [[plugins]]
 repo = 'sainnhe/gruvbox-material'
 
 [[plugins]]
 repo = 'ap/vim-css-color'
+
 
 ###
