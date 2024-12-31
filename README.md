@@ -55,7 +55,7 @@ Install
 -----------
 
 ```
-git clone https://codeberg.org/ssfdust/neovim-lua.git ~/.config/nvim
+git clone https://codeberg.org/neovim-luna/neovim-luna.git ~/.config/nvim
 ```
 
 #### Automatic Initilization
