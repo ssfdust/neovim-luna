@@ -8,20 +8,22 @@
 local set = vim.opt
 local fn = vim.fn
 local api = vim.api
+local fs = vim.fs
+local uv = vim.uv
 local autocmd = api.nvim_create_autocmd   -- Create autocommand
-local setenv = fn.setenv                 -- set environment
+local setenv = fn.setenv                  -- set environment
 
 -- Automatically install dpp
-local dpp_home = fn.stdpath('data') .. '/dpp'
+local dpp_home = fs.joinpath(fn.stdpath('data'), 'dpp')
 local dpp_repo = "Shougo/dpp.vim"
 local dpp_lazy_repo = "Shougo/dpp-ext-lazy"
 local default_branch = "main"
-local dpp_ts = fn.fnamemodify(os.getenv('MYVIMRC'), ':h') .. '/dpp_ext/dpp/dpp.ts'
+local dpp_ts = fs.joinpath(fs.dirname(os.getenv('MYVIMRC')) ,'dpp_ext/dpp/dpp.ts')
 
 -- set default hub site
 vim.g.dpp_hubsite = os.getenv("LUNA_HUBSITE") or "github.com"
 
-function _get_plugin_path(url)
+local function _get_plugin_path(url)
     local path = url:gsub("%.git$", "")
 
     path = path:gsub('^https:/+', '')
@@ -31,9 +33,29 @@ function _get_plugin_path(url)
     return path
 end
 
-function _exec_init_gitcmds(repo, branch)
-    local gitsrc = "https://" .. vim.g.dpp_hubsite .. '/' .. repo .. ".git"
-    local clone_path = dpp_home .. '/repos/' .. _get_plugin_path(gitsrc)
+local function fs_mkdir_resursive(path)
+    local current_path = path
+    local dirs_to_create = {}
+
+    local last_path = vim.fs.dirname(current_path)
+
+    while current_path ~= last_path do
+        if not vim.uv.fs_stat(current_path) then
+            table.insert(dirs_to_create, current_path)
+        end
+        current_path = last_path
+        last_path = vim.fs.dirname(current_path)
+    end
+
+    for i = #dirs_to_create, 1, -1 do
+        local dir = dirs_to_create[i]
+        vim.uv.fs_mkdir(dir, 493) --  是八进制的 0755
+    end
+end
+
+local function _exec_init_gitcmds(repo, branch)
+    local gitsrc = string.format("https://%s/%s.git", vim.g.dpp_hubsite, repo)
+    local clone_path = fs.joinpath(dpp_home, 'repos', _get_plugin_path(gitsrc))
 
     if fn.empty(fn.glob(clone_path)) > 0 then
         print("Cloning repo " .. gitsrc .. " with branch " .. branch  .. " to " .. clone_path .. " using " .. "git")
@@ -58,8 +80,43 @@ function _exec_init_gitcmds(repo, branch)
     set.runtimepath:append(clone_path)
 end
 
+local function _save_dpp_repo_state()
+    local dpp_last_repo_path_save = fs.joinpath(dpp_home, '.luna_dpp_repo_path')
+    local current_dpp_repo_path = fs.joinpath(dpp_home, 'repos', _get_plugin_path(table.concat{ vim.g.dpp_hubsite, '/', dpp_repo }))
+
+    local last_dpp_repo_path_save_file = io.open(dpp_last_repo_path_save)
+    local last_dpp_repo_path = current_dpp_repo_path
+    local state_updated = false
+
+    if not vim.uv.fs_stat(dpp_home) then
+        return state_updated
+    end
+
+    if last_dpp_repo_path_save_file ~= nil then
+        last_dpp_repo_path = last_dpp_repo_path_save_file:read() or current_dpp_repo_path
+    end
+
+    local old_repo_root = last_dpp_repo_path:gsub(dpp_repo, ''):gsub('/$', '')
+    old_repo_root = uv.fs_realpath(old_repo_root)
+    local new_repo_root = current_dpp_repo_path:gsub(dpp_repo, ''):gsub('/$', '')
+
+    if last_dpp_repo_path ~= current_dpp_repo_path then
+	state_updated = true
+    end
+
+    if old_repo_root ~= new_repo_root and vim.uv.fs_stat(old_repo_root) and not vim.uv.fs_stat(new_repo_root) then
+        vim.notify(string.format("linking '%s' to '%s'", old_repo_root, new_repo_root))
+        fs_mkdir_resursive(vim.fs.dirname(new_repo_root))
+        vim.uv.fs_symlink(old_repo_root, new_repo_root)
+    end
+
+    io.open(dpp_last_repo_path_save, 'w'):write(current_dpp_repo_path)
+
+    return state_updated
+end
+
 -- 'path' would be init.lua's parent directory.
-function activate_dpp()
+local function activate_dpp(reset_dpp)
     -- Required:
     -- Add the dpp installation directory into runtimepath
 
@@ -97,14 +154,7 @@ function activate_dpp()
     autocmd("User", {
         pattern = "Dpp:makeStatePost",
         callback = function()
-            vim.g.dpp_make_state_done = 1
             vim.notify("dpp make_state() is done")
-            vim.defer_fn(
-                function() 
-                    vim.g.dpp_make_state_done = nil
-                    vim.notify("dpp make_state tag is reset")
-                end, 
-            3000)
         end,
     })
     autocmd("BufWritePost", {
@@ -120,18 +170,25 @@ function activate_dpp()
     })
     vim.cmd("filetype indent plugin on")
     vim.cmd("syntax on")
+    if reset_dpp then
+        autocmd("VimEnter", {
+            callback = function()
+                dpp.clear_state()
+                vim.notify("dpp clear_state() is done")
+                dpp.make_state()
+            end,
+        })
+    end
 end
 
 if os.getenv("NO_LUNA_INIT") then
     return
 else
-    local dpp_last_repo_path_save = dpp_home .. '.luna_dpp_repo_path'
-    local current_dpp_repo_path = dpp_home .. '/' .. _get_plugin_path(vim.g.dpp_hubsite .. '/' .. dpp_repo)
-    local last_dpp_repo_path = io.open(dpp_last_repo_path_save)
+    local updated = _save_dpp_repo_state()
     setenv("BASE_DIR", fn.fnamemodify(os.getenv('MYVIMRC'), ':h'));
     setenv("DPP_INSTALLER_LOG", dpp_home .. "/dpp-installer.log");
     _exec_init_gitcmds(dpp_repo, default_branch)
     _exec_init_gitcmds(dpp_lazy_repo, default_branch)
-    activate_dpp()
+    activate_dpp(updated)
 end
 
