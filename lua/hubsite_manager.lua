@@ -19,11 +19,17 @@ end
 -- url with the new hubsite url. If there is some submodule in your plugin
 -- directory, the url for the submodule won't be updated.
 --
--- The process could be a very long time.
+-- The process could be a very long time. We need to handle different situations
+-- Firstly, we need to reset the repository to the origin, we will have to trigger
+-- the branch problem. For non-default branches, we need to reset to the correct
+-- branch instead of HEAD.
+--
+-- At least, for plugins in neovim-luna, this way works.
 local function update_hubsite_for_plugins(repository_root, old_hubsite, new_hubsite)
     local submodule_detect = 'git -C "%s" rev-parse --show-superproject-working-tree'
     local git_origin_url = 'git -C "%s" remote get-url origin'
     local git_update_url = 'git -C "%s" remote set-url origin "%s"'
+    local git_reset = 'git -C "%s" reset origin/%s --hard'
     local git_plugin_dirs = {}
     local old_origin_url = ''
 
@@ -54,7 +60,17 @@ local function update_hubsite_for_plugins(repository_root, old_hubsite, new_hubs
         local new_origin_url = old_origin_url:gsub(old_hubsite, new_hubsite)
         -- vim.notify(string.format('switch origin url of plugin %s from %s to %s', fs.basename(entry), old_origin_url, new_origin_url))
 
-        local handler = io.popen(git_update_url:format(entry, new_origin_url))
+        handler = io.popen(git_update_url:format(entry, new_origin_url))
+        handler:close()
+
+        local parts = filename:split("/")
+        local reponame = parts[#parts]:gsub('.git$', '')
+        local head = 'origin/HEAD'
+        if fs.dirname(entry) ~= reponame then
+            head = 'origin/' .. entry:gsub(reponame, ''):gsub('_', '')
+        end
+
+        handler = io.popen(git_reset:format(entry))
         handler:close()
     end
 end
@@ -142,6 +158,7 @@ function detect_dpp_hubsite_state(current_dpp_hubsite, dpp_home, dpp_repo)
     local new_repo_root = current_dpp_repo_path:gsub(dpp_repo, ''):gsub('/$', '')
     local src_repo_root = uv.fs_realpath(old_repo_root)
 
+    -- Create the repository directory and create symbol link to the new location
     if old_repo_root ~= new_repo_root and uv.fs_stat(old_repo_root) and not uv.fs_stat(new_repo_root) then
         local src_repo_root = uv.fs_realpath(old_repo_root)
 
@@ -149,22 +166,32 @@ function detect_dpp_hubsite_state(current_dpp_hubsite, dpp_home, dpp_repo)
 
         fs_mkdir_resursive(fs.dirname(new_repo_root))
         uv.fs_symlink(src_repo_root, new_repo_root)
-	-- unlink the old repo root, there would be nothing to do with the directory target
 
         update_hubsite_for_plugins(src_repo_root, last_dpp_hubsite, current_dpp_hubsite)
+
+        -- When the hubsite is changed, we need to remove the old repository directory
         autocmd("User", {
             pattern = "Dpp:makeStatePost",
             callback = function()
-                uv.fs_unlink(old_repo_root)
-		vim.cmd("qall")
+                vim.notify("The hubsite modification is detected, vim will exited after 3 secs")
+                vim.defer_fn(function()
+                    uv.fs_unlink(old_repo_root)
+                    vim.cmd("qall")
+                end, 3000)
             end,
         })
     elseif old_repo_root ~= new_repo_root and uv.fs_stat(old_repo_root) and uv.fs_stat(new_repo_root) then
+        -- When the hubsite is changed and the repository directory already 
+        -- exists, we need to remove the old repository directory as well
         autocmd("User", {
             pattern = "Dpp:makeStatePost",
             callback = function()
+                vim.notify("The hubsite modification is detected, vim will exited after 3 secs")
                 uv.fs_unlink(old_repo_root)
-		vim.cmd("qall")
+                vim.defer_fn(function()
+                    uv.fs_unlink(old_repo_root)
+                    vim.cmd("qall")
+                end, 3000)
             end,
         })
     end
