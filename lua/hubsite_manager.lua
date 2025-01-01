@@ -152,6 +152,8 @@ function detect_dpp_hubsite_state(current_dpp_hubsite, dpp_home, dpp_repo)
 
     if last_dpp_repo_path ~= current_dpp_repo_path then
         state_updated = true
+    else
+        return state_updated
     end
 
     local old_repo_root = last_dpp_repo_path:gsub(dpp_repo, ''):gsub('/$', '')

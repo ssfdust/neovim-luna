@@ -91,8 +91,8 @@ local function activate_dpp(reset_dpp)
             vim.notify("dpp make_state() is done")
         end,
     })
-    autocmd("BufWritePost", {
-        pattern = "*.toml",
+    autocmd("User", {
+        pattern = "DenopsReady",
         callback = function()
             local dpp_sync_ext_action = vim.fn['dpp#sync_ext_action']
             local dpp_async_ext_action = vim.fn['dpp#async_ext_action']

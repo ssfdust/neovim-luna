@@ -5,9 +5,11 @@
 
 -- Plugin: lualine
 -- url: https://github.com/nvim-lualine/nvim-lualine
-local empty = require("lualine.component"):extend()
-local opts = require('lualine').get_config()
 
+-- Origin from https://github.com/LazyVim/LazyVim/discussions/5226
+
+local options = require('lualine.config').get_config()
+local empty = require("lualine.component"):extend()
 function empty:draw(default_highlight)
     self.status = ""
     self.applied_separator = ""
@@ -27,11 +29,12 @@ local function add_spacer(section, side)
     return section
 end
 
-opts.sections["lualine_a"] = add_spacer(opts.sections["lualine_a"], "left")
-opts.sections["lualine_z"] = add_spacer(opts.sections["lualine_z"], "right")
-opts.options.section_separators = { left = "", right = "" }
-opts.options.component_separators = { left = "╲", right = "╱" }
+options.sections["lualine_a"] = add_spacer(options.sections["lualine_a"], "left")
+options.sections["lualine_z"] = add_spacer(options.sections["lualine_z"], "right")
+options.options.section_separators = { left = "", right = "" }
+options.options.component_separators = { left = "╲", right = "╱" }
+options.theme = vim.g.colorscheme
 
-require('lualine').setup(opts)
+require('lualine').setup(options)
 
 -- }}}

@@ -22,10 +22,8 @@ repo = 'goolord/alpha-nvim'
 hooks_file = "$BASE_DIR/lua/plugins/alpha.lua"
 
 [[plugins]]
-repo = 'sainnhe/gruvbox-material'
+repo = 'eddyekofo94/gruvbox-flat.nvim'
 
 [[plugins]]
 repo = 'ap/vim-css-color'
-
-
 ###

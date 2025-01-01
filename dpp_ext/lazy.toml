@@ -8,7 +8,7 @@ extAttrs = { installerBuild = 'deno task --quiet build:fast' }
 [[plugins]]
 repo = 'neoclide/coc.nvim'
 rev = 'release'
-on_event = ['InsertEnter', 'CmdlineEnter', 'CursorHold']
+on_event = ['InsertEnter', 'CmdlineEnter']
 hooks_file = "$BASE_DIR/lua/plugins/coc.lua"
 ### LSP END
 
@@ -50,3 +50,8 @@ on_cmd = ['G', 'G*']
 repo = 'nvim-lualine/lualine.nvim'
 on_event = ['AlphaClosed', 'BufRead', 'BufNewFile']
 hooks_file = "$BASE_DIR/lua/plugins/lualine.lua"
+
+[[plugins]]
+repo = 'romgrk/barbar.nvim'
+on_event = ['AlphaClosed', 'BufRead', 'BufNewFile']
+hooks_file = "$BASE_DIR/lua/plugins/barbar.lua"
