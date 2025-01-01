@@ -1,3 +1,4 @@
+require('hubsite_manager')
 require('dpp_init')
 require('core/options')
 require('core/autocmds')
