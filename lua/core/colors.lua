@@ -19,9 +19,9 @@ if ok then
     g.gruvbox_theme = {
         TabLineSel = {
             fg = colors.bg_statusline,
-            bg = colors.green
+            bg = colors.yellow
         },
-        WarningMsg = { fg = colors.yellow2 }
+        WarningMsg = { fg = colors.bg_yellow }
     }
 end
 
