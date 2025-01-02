@@ -9,7 +9,7 @@ vim.g.barbar_auto_setup = false
 
 require("barbar").setup {
     icons = {
-        filetype = { enabled = false, custom_colors = true },
+        filetype = { enabled = true, custom_colors = true },
         inactive = { separator = { left = '', right = '' } },
         separator = { left = '', right = '' },
         separator_at_end = false,

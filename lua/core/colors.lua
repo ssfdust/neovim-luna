@@ -4,27 +4,13 @@
 
 -- See: https://github.com/brainfucksec/neovim-lua#appearance
 
--- Color Schema: gruvbox-flat
+-- Color Schema: kanagawa.nvim
+-- Source: https://github.com/rebelot/kanagawa.nvim
 -----------------------------------------------------------
 
 local g = vim.g       -- Global variables
 
-g.colorscheme = 'gruvbox-flat'
-g.gruvbox_flat_style = "dark"
-
-local ok, config = pcall(require, "gruvbox.config")
-
-if ok then
-    local colors = require("gruvbox.colors").setup(config)
-    g.gruvbox_theme = {
-        TabLineSel = {
-            fg = colors.bg_statusline,
-            bg = colors.yellow
-        },
-        WarningMsg = { fg = colors.bg_yellow }
-    }
-end
-
+g.colorscheme = 'kanagawa-wave'
 
 -----------------------------------------------------------
 -- Load color schema
@@ -33,6 +19,6 @@ end
 local ok, _ = pcall(vim.cmd, "colorscheme " .. g.colorscheme)
 
 if not ok then
-    pcall(vim.cmd, "colorscheme " .. "slate")
+    vim.cmd[[colorscheme slate]]
     return
 end
