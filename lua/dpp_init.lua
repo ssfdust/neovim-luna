@@ -9,15 +9,21 @@ local set = vim.opt
 local fn = vim.fn
 local api = vim.api
 local fs = vim.fs
+local uv = vim.uv
 local autocmd = api.nvim_create_autocmd   -- Create autocommand
 local setenv = fn.setenv                  -- set environment
 
--- Automatically install dpp
 local dpp_home = fs.joinpath(fn.stdpath('data'), 'dpp')
+
+-- Set global enviromnent
+setenv("BASE_DIR", fs.dirname(vim.uv.fs_realpath(os.getenv('MYVIMRC'))));
+setenv("DPP_INSTALLER_LOG", fs.joinpath(dpp_home, "dpp-installer.log"));
+
+-- Automatically install dpp
 local dpp_repo = "Shougo/dpp.vim"
 local dpp_lazy_repo = "Shougo/dpp-ext-lazy"
 local default_branch = "main"
-local dpp_ts = fs.joinpath(fs.dirname(os.getenv('MYVIMRC')) ,'dpp_ext/dpp/dpp.ts')
+local dpp_ts = fs.joinpath(os.getenv('BASE_DIR') ,'dpp_ext', 'dpp', 'dpp.ts')
 
 -- set default hub site
 vim.g.dpp_hubsite = os.getenv("LUNA_HUBSITE") or "github.com"
@@ -120,8 +126,6 @@ if os.getenv("NO_LUNA_INIT") then
     return
 else
     local updated = detect_dpp_hubsite_state(vim.g.dpp_hubsite, dpp_home, dpp_repo)
-    setenv("BASE_DIR", fn.fnamemodify(os.getenv('MYVIMRC'), ':h'));
-    setenv("DPP_INSTALLER_LOG", dpp_home .. "/dpp-installer.log");
     _exec_init_gitcmds(dpp_repo, default_branch)
     _exec_init_gitcmds(dpp_lazy_repo, default_branch)
     activate_dpp(updated)

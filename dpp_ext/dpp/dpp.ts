@@ -77,9 +77,11 @@ export class Config extends BaseConfig {
       const tomlPromises = [
         { path: "$BASE_DIR/dpp_ext/dpp/dpp.toml", lazy: false },
         { path: "$BASE_DIR/dpp_ext/merge.toml", lazy: false },
+        { path: "$BASE_DIR/dpp_ext/ddc/ddc.toml", lazy: true },
         { path: "$BASE_DIR/dpp_ext/denops.toml", lazy: true },
         { path: "$BASE_DIR/dpp_ext/ddu/ddu.toml", lazy: true },
         { path: "$BASE_DIR/dpp_ext/lazy.toml", lazy: true },
+        { path: "$BASE_DIR/dpp_ext/nvim-lsp.toml", lazy: true },
       ].map((tomlFile) =>
         action.callback({
           denops: args.denops,

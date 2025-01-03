@@ -4,14 +4,6 @@ on_cmd = 'MdPreview'
 hooks_file = "$BASE_DIR/lua/plugins/peek.lua"
 extAttrs = { installerBuild = 'deno task --quiet build:fast' }
 
-### LSP Section
-[[plugins]]
-repo = 'neoclide/coc.nvim'
-rev = 'release'
-on_event = ['InsertEnter', 'CmdlineEnter']
-hooks_file = "$BASE_DIR/lua/plugins/coc.lua"
-### LSP END
-
 ### Snippet Section
 ### Count: 2
 [[plugins]]
@@ -23,11 +15,6 @@ repo = 'Shougo/neosnippet.vim'
 on_event = ['InsertEnter', 'CmdlineEnter']
 
 ### Snippet END
-[[plugins]]
-repo = 'nvim-treesitter/nvim-treesitter'
-on_event = ['CursorHold', 'InsertEnter', 'CmdlineEnter']
-hooks_file = "$BASE_DIR/lua/plugins/treesitter.lua"
-
 [[plugins]]
 repo = 'Exafunction/codeium.vim'
 on_event = ['InsertEnter']

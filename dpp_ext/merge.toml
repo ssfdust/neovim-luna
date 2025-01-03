@@ -1,5 +1,3 @@
-### Extra Section
-### Count: 7
 [[plugins]]
 repo = 'airblade/vim-rooter'
 hooks_file = "$BASE_DIR/lua/plugins/rooter.lua"
@@ -11,9 +9,7 @@ hooks_file = "$BASE_DIR/lua/plugins/licenses.lua"
 [[plugins]]
 repo = 'Shougo/deol.nvim'
 hooks_file = "$BASE_DIR/lua/plugins/deol.lua"
-### Extra End
-### UI Section
-### Count: 7
+
 [[plugins]]
 repo = 'nvim-tree/nvim-web-devicons'
 
