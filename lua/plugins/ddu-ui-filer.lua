@@ -23,11 +23,6 @@ set_keymap(
                     name = 'file',
                     options = {
                         path = vim.t.ddu_ui_filer_path or vim.fn.getcwd(),
-                        columns = {
-                            {
-                                name = "filename",
-                            },
-                        },
                     }
                 }
             },
@@ -50,11 +45,6 @@ set_keymap(
                     name = 'file',
                     options = {
                         path = vim.t.ddu_ui_filer_path or vim.fn.getcwd(),
-                        columns = {
-                            {
-                                name = "filename",
-                            },
-                        },
                     }
                 }
             },
@@ -115,6 +105,7 @@ set_keymap("n", "P", function() ddu_ui_do_action('togglePreview') end, key_map_o
 set_keymap("n", "T", function() ddu_ui_do_action('cursorTreeTop') end, key_map_opts)
 set_keymap("n", "B", function() ddu_ui_do_action('cursorTreeBottom') end, key_map_opts)
 set_keymap("n", "q", function() ddu_ui_do_action('quit') end, key_map_opts)
+set_keymap("n", "gq", function() ddu_ui_do_action('quit') end, key_map_opts)
 set_keymap("n", "<C-l>", function() ddu_ui_do_action('redraw') end, key_map_opts)
 set_keymap("n", "o",
     function()

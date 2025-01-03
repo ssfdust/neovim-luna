@@ -21,6 +21,7 @@ export class Config extends BaseConfig {
     args.setAlias("files", "source", "file_git", "file_external");
     args.setAlias("files", "filter", "matcher_ignore_current_buffer", "matcher_ignores");
     args.setAlias("files", "action", "tabopen", "open");
+    args.setAlias("files", "column", "icon_filename_for_ff", "icon_filename");
 
     args.contextBuilder.patchGlobal({
       ui: "ff",
@@ -74,6 +75,19 @@ export class Config extends BaseConfig {
           toggle: true,
         } as Partial<FilerParams>,
       },
+      columnParams: {
+        icon_filename: {
+          defaultIcon: {
+            icon: '',
+          },
+        },
+        icon_filename_for_ff: {
+          defaultIcon: {
+            icon: '',
+          },
+          pathDisplayOption: 'relative',
+        },
+      },
       sourceOptions: {
         _: {
           ignoreCase: true,
@@ -81,6 +95,7 @@ export class Config extends BaseConfig {
           smartCase: true,
         },
         file_old: {
+          columns: ['icon_filename_for_ff'],
           matchers: [
             "matcher_relative",
             "matcher_substring",
@@ -88,6 +103,7 @@ export class Config extends BaseConfig {
           converters: ["converter_hl_dir"],
         },
         file_git: {
+          columns: ['icon_filename_for_ff'],
           matchers: [
             "matcher_relative",
             "matcher_substring",
@@ -96,6 +112,7 @@ export class Config extends BaseConfig {
           converters: ["converter_hl_dir"],
         },
         file_rec: {
+          columns: ['icon_filename_for_ff'],
           matchers: [
             "matcher_substring",
             "matcher_hidden",
@@ -104,6 +121,7 @@ export class Config extends BaseConfig {
           converters: ["converter_hl_dir"],
         },
         file: {
+          columns: ['icon_filename'],
           matchers: [
             "matcher_substring",
             "matcher_hidden",

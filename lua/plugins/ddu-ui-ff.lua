@@ -84,6 +84,7 @@ set_keymap("n", "O", function() ddu_ui_do_action('collapseItem') end, key_map_op
 set_keymap("n", "p", function() ddu_ui_do_action('previewPath') end, key_map_opts)
 set_keymap("n", "P", function() ddu_ui_do_action('togglePreview') end, key_map_opts)
 set_keymap("n", "q", function() ddu_ui_do_action('quit') end, key_map_opts)
+set_keymap("n", "gq", function() ddu_ui_do_action('quit') end, key_map_opts)
 set_keymap("n", "o",
     function()
         ddu_ui_do_action(

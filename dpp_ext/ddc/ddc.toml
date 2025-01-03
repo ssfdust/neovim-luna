@@ -70,6 +70,16 @@ repo = 'delphinus/ddc-shell-history'
 on_source = 'ddc.vim'
 
 [[plugins]]
+repo = 'matsui54/denops-popup-preview.vim'
+depends = 'ddc-source-lsp'
+on_source = 'ddc.vim'
+hook_source = '''
+inoremap <buffer> <expr><c-f> popup_preview#scroll(+4)
+inoremap <buffer> <expr><c-d> popup_preview#scroll(-4)
+call popup_preview#enable()
+'''
+
+[[plugins]]
 repo = 'https://github.com/tani/ddc-fuzzy'
 on_source = 'ddc.vim'
 
