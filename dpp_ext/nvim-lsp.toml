@@ -12,6 +12,7 @@ hooks_file = '$BASE_DIR/lua/plugins/mason-lspconfig.lua'
 repo = 'williamboman/mason.nvim'
 depends = 'nvim-lspconfig'
 on_event = 'FileType'
+on_if = '&filetype != "alpha"'
 hooks_file = '$BASE_DIR/lua/plugins/mason.lua'
 
 [[plugins]]

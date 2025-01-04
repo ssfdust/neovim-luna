@@ -7,12 +7,13 @@ extAttrs = { installerBuild = 'deno task --quiet build:fast' }
 ### Snippet Section
 ### Count: 2
 [[plugins]]
-repo = 'ssfdust/neosnippet-snippets'
-on_event = ['InsertEnter', 'CmdlineEnter']
+repo = 'uga-rosa/denippet.vim'
+on_source = ['ddc.vim']
+hooks_file = "$BASE_DIR/lua/plugins/denippet.lua"
 
 [[plugins]]
-repo = 'Shougo/neosnippet.vim'
-on_event = ['InsertEnter', 'CmdlineEnter']
+repo = 'rafamadriz/friendly-snippets'
+on_source = ['ddc.vim']
 
 ### Snippet END
 [[plugins]]

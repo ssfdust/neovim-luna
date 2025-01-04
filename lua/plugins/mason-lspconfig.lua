@@ -9,6 +9,7 @@
 -- https://github.com/neovim/neovim/issues/23725#issuecomment-1561364086
 -- lua_source {{{
 local fs = vim.fs
+
 local nvim_lsp = require('lspconfig')
 
 local handlers = {
@@ -54,7 +55,6 @@ local handlers = {
         return { capabilities = capabilities }
     end,
 }
-
 
 require('mason-lspconfig').setup_handlers({
     function(server_name)

@@ -11,6 +11,7 @@ export class Config extends BaseConfig {
         const commonSources = [
             "around",
             "file",
+            "denippet"
         ];
 
         args.contextBuilder.patchGlobal({

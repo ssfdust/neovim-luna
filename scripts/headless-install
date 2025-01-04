@@ -1,11 +1,17 @@
 #!/bin/bash
 
-logfile=$(mktemp --suffix=.nvim-log)
+lspservers=(bash-language-server lua-language-server rust-analyzer pyright)
 
-echo "Logs are redirected to $logfile"
-exec 1> $logfile
-exec 2>> $logfile
-set -x
+if [ -z "${NO_REDIR_LOG}" ];then
+    logfile=$(mktemp --suffix=.nvim-log)
+    echo "Logs are redirected to $logfile"
+    exec 1> $logfile
+    exec 2>> $logfile
+fi
+
+if [ -n "${LSP_SERVERS}" ];then
+    IFS=',' read -ra lspservers <<< "${LSP_SERVERS}"
+fi
 
 source ~/.bashrc
 
@@ -22,13 +28,9 @@ source ~/.bashrc
 # dpp initilization.
 function init_dpp_inst() {
     if [ ! -d ~/.local/share/nvim/dpp ];then
-        nvim --headless \
-            +"call denops#server#start()" \
-            +"call denops#server#wait()" \
-            +'autocmd User Dpp:makeStatePost qall'
+        nvim --noplugin --headless +'autocmd User Dpp:makeStatePost qall'
     fi
 }
-
 # Install the plugins in dpp plugin manager. It won't exit utill all the plugins
 # are installed, this function prevent incompleted or bad plugins during the
 # initilization.
@@ -37,7 +39,7 @@ function init_dpp_inst() {
 function inst_dpp_plugins () {
     while :;
     do
-        notinstalled=$(
+        local notinstalled=$(
             nvim --headless \
                 +"call denops#server#start()" \
                 +"call denops#server#wait()" \
@@ -53,6 +55,47 @@ function inst_dpp_plugins () {
         else
             break
         fi
+    done
+}
+
+function inst_lsp_server () {
+    while :;
+    do
+        local has_lsp_server=$(
+            nvim --headless \
+                +"call denops#server#wait()" \
+                +"call dpp#source('mason.nvim')" \
+                +"lua print(require[[mason-registry]].has_package[[$1]])" \
+                +qall 2>&1
+        )
+        if [ ! "${has_lsp_server}" = "true" ];then
+            echo "${1} is not a lsp tool"
+            break
+        fi
+        local is_lsp_server_inst=$(
+            nvim --headless \
+                +"call denops#server#wait()" \
+                +"call dpp#source('mason.nvim')" \
+                +"lua print(require[[mason-registry]].is_installed[[$1]])" \
+                +qall 2>&1
+        )
+        if [ "${is_lsp_server_inst}" = "true" ];then
+            echo "${1} has been installed."
+            break
+        else
+            nvim --headless \
+                +"call denops#server#wait()" \
+                +"call dpp#source('mason.nvim')" \
+                +"MasonInstall $1" \
+                +qall
+        fi
+    done
+}
+
+function lsp_tools_initilize () {
+    for lspserver in ${lspservers[@]}
+    do
+        inst_lsp_server "${lspserver}"
     done
 }
 
@@ -84,7 +127,7 @@ function setup_denops_server () {
 function inst_ts_plugins () {
     while :;
     do
-        ts_inst_log=$(nvim --headless +TSUpdateSync +qall 2>&1 | grep -v 'up-to-date')
+        local ts_inst_log=$(nvim --headless +"call dpp#source('nvim-treesitter')" +TSUpdateSync +qall 2>&1 | grep -v 'up-to-date')
         if [ "$ts_inst_log" = "" ];then
             break
         fi
@@ -97,6 +140,9 @@ function main () {
     init_dpp_inst
     inst_dpp_plugins
     setup_denops_server
+
+    # Start initilize lsp server
+    lsp_tools_initilize
 
     # Enable automatic installation for treesitter.
     unset NO_ENSURE_TREESITTER

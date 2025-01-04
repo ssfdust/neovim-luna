@@ -55,6 +55,13 @@ local function _exec_init_gitcmds(repo, branch)
     set.runtimepath:append(clone_path)
 end
 
+local function inst_plugins()
+    local not_installed = fn['dpp#sync_ext_action']('installer', 'getNotInstalled');
+    if type(next(not_installed)) ~= 'nil' then
+        fn['dpp#async_ext_action']('installer', 'install')
+    end
+end
+
 -- 'path' would be init.lua's parent directory.
 local function activate_dpp(reset_dpp)
     -- Required:
@@ -74,6 +81,7 @@ local function activate_dpp(reset_dpp)
         for _, repo in ipairs(plugins) do
             _exec_init_gitcmds(repo, default_branch)
         end
+        vim.cmd[[runtime! plugin/denops.vim]]
 
         autocmd("User", {
             pattern = "DenopsReady",
@@ -86,9 +94,32 @@ local function activate_dpp(reset_dpp)
         autocmd("BufWritePost", {
             pattern = {"*.lua", "*.vim", "*.toml", "*.ts", "vimrc", ".vimrc"},
             callback = function()
-                local dpp_check_files = fn["dpp#check_files"]
-                dpp_check_files()
+                dpp.check_files()
             end,
+        })
+        if reset_dpp then
+            autocmd("User", {
+                pattern = "DenopsReady",
+                callback = function()
+                    dpp.clear_state()
+                    vim.notify("dpp clear_state() is done")
+                    dpp.make_state()
+                end,
+            })
+        else
+            autocmd("User", {
+                pattern = "DenopsReady",
+                callback = function()
+                    local is_headless = #api.nvim_list_uis() == 0
+                    if not is_headless then
+                        inst_plugins()
+                    end
+                end,
+            })
+        end
+        autocmd("BufWritePost", {
+            pattern = "*.toml",
+            callback = inst_plugins,
         })
     end
     autocmd("User", {
@@ -97,29 +128,9 @@ local function activate_dpp(reset_dpp)
             vim.notify("dpp make_state() is done")
         end,
     })
-    autocmd("User", {
-        pattern = "DenopsReady",
-        callback = function()
-            local dpp_sync_ext_action = vim.fn['dpp#sync_ext_action']
-            local dpp_async_ext_action = vim.fn['dpp#async_ext_action']
-            local not_installed = dpp_sync_ext_action('installer', 'getNotInstalled');
-            if type(next(not_installed)) ~= 'nil' then
-                dpp_async_ext_action('installer', 'install')
-            end
-        end,
-    })
     vim.cmd("filetype indent plugin on")
     vim.cmd("syntax on")
 
-    if reset_dpp then
-        autocmd("VimEnter", {
-            callback = function()
-                dpp.clear_state()
-                vim.notify("dpp clear_state() is done")
-                dpp.make_state()
-            end,
-        })
-    end
 end
 
 if os.getenv("NO_LUNA_INIT") then

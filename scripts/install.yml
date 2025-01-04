@@ -29,4 +29,5 @@
       script: headless-install
       args:
         executable: /bin/bash
+      when: ansible_distribution == "Archlinux"
 
