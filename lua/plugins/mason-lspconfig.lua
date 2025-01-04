@@ -1,9 +1,9 @@
 -----------------------------------------------------------
---   Extension to mason.nvim
+-- Extension to mason-lspconfig.nvim
 -----------------------------------------------------------
 
--- Plugin Name: nvim-lspconfig
--- url: https://github.com/neovim/nvim-lspconfig
+-- Plugin Name: mason-lspconfig.nvim
+-- url: https://github.com/williamboman/mason-lspconfig.nvim
 
 -- NOTE: Disable lsp watcher. Too slow on linux
 -- https://github.com/neovim/neovim/issues/23725#issuecomment-1561364086

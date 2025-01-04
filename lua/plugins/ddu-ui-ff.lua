@@ -24,18 +24,18 @@ autocmd(
             local ddu_ui_do_action = vim.fn["ddu#ui#do_action"]
 
             set_keymap('c', '<C-f>',
-                function() 
+                function()
                     ddu_ui_do_action('cursorNext', { loop = true })
                 end,
                 key_map_opts
             )
             set_keymap('c', '<C-b>',
-                function() 
+                function()
                     ddu_ui_do_action('cursorPrevious', { loop = true })
                 end,
                 key_map_opts
             )
-                
+
             ddu_ui_save_cmaps({'<C-f>', '<C-b>'})
         end
     }

@@ -73,11 +73,7 @@ on_source = 'ddc.vim'
 repo = 'matsui54/denops-popup-preview.vim'
 depends = 'ddc-source-lsp'
 on_source = 'ddc.vim'
-hook_source = '''
-inoremap <buffer> <expr><c-f> popup_preview#scroll(+4)
-inoremap <buffer> <expr><c-d> popup_preview#scroll(-4)
-call popup_preview#enable()
-'''
+hooks_file = '$BASE_DIR/lua/plugins/denops-popup-preview.lua'
 
 [[plugins]]
 repo = 'https://github.com/tani/ddc-fuzzy'

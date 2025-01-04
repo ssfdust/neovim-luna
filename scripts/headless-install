@@ -21,13 +21,12 @@ source ~/.bashrc
 # but not sourced, so we need to start denops manually to wait for the end of
 # dpp initilization.
 function init_dpp_inst() {
-    if [ -d ~/.local/share/nvim/dpp ];then
-        return
+    if [ ! -d ~/.local/share/nvim/dpp ];then
+        nvim --headless \
+            +"call denops#server#start()" \
+            +"call denops#server#wait()" \
+            +'autocmd User Dpp:makeStatePost qall'
     fi
-    nvim --headless \
-        +"call denops#server#start()" \
-        +"call denops#server#wait()" \
-        +'autocmd User Dpp:makeStatePost qall'
 }
 
 # Install the plugins in dpp plugin manager. It won't exit utill all the plugins
@@ -36,7 +35,6 @@ function init_dpp_inst() {
 #
 # The installation depends on dpp and denops.
 function inst_dpp_plugins () {
-    mkdir ~/.config/coc
     while :;
     do
         notinstalled=$(
@@ -72,28 +70,6 @@ function setup_denops_server () {
         +qall
 }
 
-# Install Language Service Protocol plugin (coc.nvim) for neovim
-#
-# This function prevents incompleted installation for coc.nvim
-function inst_coc_plugins () {
-    coc_plugins=$(nvim --headless +"echo coc_global_extensions" +qa 2>&1 | sed "s/'/\"/g" | jq -r .[])
-
-    while :;
-    do
-        need_reinstall=0
-        nvim --headless +"call coc#rpc#request('installExtensions', g:coc_global_extensions)" +qall
-        for plugin in ${coc_plugins[@]}
-        do
-            if [ ! -d ~/.config/coc/extensions/"node_modules/${plugin}" ];then
-                need_reinstall=1
-            fi
-        done
-        if [ "$need_reinstall" = "0" ];then
-            break
-        fi
-    done
-}
-
 # Install the treesitter plugins
 #
 # This function prevents incompleted treesitter plugins.
@@ -121,7 +97,6 @@ function main () {
     init_dpp_inst
     inst_dpp_plugins
     setup_denops_server
-    inst_coc_plugins
 
     # Enable automatic installation for treesitter.
     unset NO_ENSURE_TREESITTER
