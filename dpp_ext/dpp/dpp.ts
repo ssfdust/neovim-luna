@@ -17,10 +17,6 @@ import type {
   Params as TomlParams,
 } from "jsr:@shougo/dpp-ext-toml@~1.3.0";
 import type {
-  Ext as PackspecExt,
-  Params as PackspecParams,
-} from "jsr:@shougo/dpp-ext-packspec@~1.3.0";
-import type {
   Ext as LazyExt,
   LazyMakeStateResult,
   Params as LazyParams,
@@ -117,42 +113,6 @@ export class Config extends BaseConfig {
 
         if (toml.hooks_file) {
           hooksFiles.push(toml.hooks_file);
-        }
-      }
-    }
-
-
-    const [packspecExt, packspecOptions, packspecParams]: [
-      PackspecExt | undefined,
-      ExtOptions,
-      PackspecParams,
-    ] = await args.denops.dispatcher.getExt(
-      "packspec",
-    ) as [PackspecExt | undefined, ExtOptions, PackspecParams];
-    if (packspecExt) {
-      const action = packspecExt.actions.load;
-
-      const packSpecPlugins = await action.callback({
-        denops: args.denops,
-        context,
-        options,
-        protocols,
-        extOptions: packspecOptions,
-        extParams: packspecParams,
-        actionParams: {
-          basePath: args.basePath,
-          plugins: Object.values(recordPlugins),
-        },
-      });
-
-      for (const plugin of packSpecPlugins) {
-        if (plugin.name in recordPlugins) {
-          recordPlugins[plugin.name] = Object.assign(
-            recordPlugins[plugin.name],
-            plugin,
-          );
-        } else {
-          recordPlugins[plugin.name] = plugin;
         }
       }
     }

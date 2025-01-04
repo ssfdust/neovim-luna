@@ -13,7 +13,4 @@ repo = 'Shougo/dpp-ext-toml'
 repo = 'Shougo/dpp-ext-installer'
 
 [[plugins]]
-repo = 'Shougo/dpp-ext-packspec'
-
-[[plugins]]
 repo = 'Shougo/dpp-protocol-git'

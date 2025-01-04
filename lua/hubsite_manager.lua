@@ -138,6 +138,7 @@ function detect_dpp_hubsite_state(current_dpp_hubsite, dpp_home, dpp_repo)
     -- Skip the detection progress and save the current hubsite when the dpp is
     -- not initilized
     if not vim.uv.fs_stat(dpp_home) then
+        fs_mkdir_resursive(dpp_home)
         write_to_file(dpp_last_hubsite_save_path, current_dpp_hubsite)
 
         return state_updated

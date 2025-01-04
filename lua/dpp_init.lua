@@ -16,7 +16,7 @@ local setenv = fn.setenv                  -- set environment
 local dpp_home = fs.joinpath(fn.stdpath('data'), 'dpp')
 
 -- Set global enviromnent
-setenv("BASE_DIR", fs.dirname(vim.uv.fs_realpath(os.getenv('MYVIMRC'))));
+setenv("BASE_DIR", fs.dirname(uv.fs_realpath(os.getenv('MYVIMRC'))));
 setenv("DPP_INSTALLER_LOG", fs.joinpath(dpp_home, "dpp-installer.log"));
 
 -- Automatically install dpp
@@ -63,10 +63,10 @@ local function activate_dpp(reset_dpp)
     local dpp = require("dpp")
 
     if dpp.load_state(dpp_home) then
+        -- vim.g.denops_server_addr = '127.0.0.1:12345'
         -- Add the denops and dpp-ext-installer directory into runtimepath
         local plugins = {
             "Shougo/dpp-ext-installer",
-            "Shougo/dpp-ext-packspec",
             "Shougo/dpp-ext-toml",
             "Shougo/dpp-protocol-git",
             "vim-denops/denops.vim",
