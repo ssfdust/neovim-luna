@@ -20,7 +20,7 @@ set_keymap('n', '<Space>ai',
     { noremap = true, silent = true }
 )
 
-set_keymap('i', '<C-a>',
+set_keymap('i', '<C-/>',
     function ()
         return fn['ddc#map#manual_complete']({
             sources = { 'codeium' }
