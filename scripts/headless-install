@@ -1,6 +1,14 @@
 #!/bin/bash
 
-lspservers=(bash-language-server lua-language-server rust-analyzer pyright)
+lspservers=(
+    bash-language-server
+    clangd
+    deno
+    lua-language-server
+    pyright
+    rust-analyzer
+    vim-language-server
+)
 
 if [ -z "${NO_REDIR_LOG}" ];then
     logfile=$(mktemp --suffix=.nvim-log)
@@ -63,6 +71,7 @@ function inst_lsp_server () {
     do
         local has_lsp_server=$(
             nvim --headless \
+                +"call denops#server#start()" \
                 +"call denops#server#wait()" \
                 +"call dpp#source('mason.nvim')" \
                 +"lua print(require[[mason-registry]].has_package[[$1]])" \
@@ -74,6 +83,7 @@ function inst_lsp_server () {
         fi
         local is_lsp_server_inst=$(
             nvim --headless \
+                +"call denops#server#start()" \
                 +"call denops#server#wait()" \
                 +"call dpp#source('mason.nvim')" \
                 +"lua print(require[[mason-registry]].is_installed[[$1]])" \
@@ -84,6 +94,7 @@ function inst_lsp_server () {
             break
         else
             nvim --headless \
+                +"call denops#server#start()" \
                 +"call denops#server#wait()" \
                 +"call dpp#source('mason.nvim')" \
                 +"MasonInstall $1" \
@@ -92,7 +103,22 @@ function inst_lsp_server () {
     done
 }
 
+# Install lsp server defined in `LSP_SERVERS`, if it's not exists it will install
+# the default servers.
+#
+# Default servers:
+# -     bash-language-server
+# -     clangd
+# -     lua-language-server
+# -     pyright
+# -     rust-analyzer pyright
 function lsp_tools_initilize () {
+    nvim --headless \
+        +"call denops#server#start()" \
+        +"call denops#server#wait()" \
+        +"call dpp#source('mason.nvim')" \
+        +"lua require[[mason-registry]].refresh()" \
+        +qall
     for lspserver in ${lspservers[@]}
     do
         inst_lsp_server "${lspserver}"

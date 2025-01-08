@@ -3,7 +3,7 @@ pacman -Syu --noconfirm
 pacman -S \
     gcc npm neovim nodejs python-neovim \
     python-pygments global fortune-mod \
-    ripgrep git deno jq ctags \
+    ripgrep git deno jq ctags unzip \
     --noconfirm --needed
 
 cat > /etc/profile.d/60-gtags.sh <<EOF

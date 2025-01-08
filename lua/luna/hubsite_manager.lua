@@ -6,6 +6,8 @@ local uv = vim.uv
 local fs = vim.fs
 local autocmd = vim.api.nvim_create_autocmd
 
+local utils = require('luna/utils')
+
 local function write_to_file(file, content)
     local handler = io.open(file, 'w')
 
@@ -75,27 +77,6 @@ local function update_hubsite_for_plugins(repository_root, old_hubsite, new_hubs
     end
 end
 
--- The mkdir -p implementation for neovim
-local function fs_mkdir_resursive(path)
-    local current_path = path
-    local dirs_to_create = {}
-
-    local last_path = fs.dirname(current_path)
-
-    while current_path ~= last_path do
-        if not vim.uv.fs_stat(current_path) then
-            table.insert(dirs_to_create, current_path)
-        end
-        current_path = last_path
-        last_path = fs.dirname(current_path)
-    end
-
-    for i = #dirs_to_create, 1, -1 do
-        local dir = dirs_to_create[i]
-        vim.uv.fs_mkdir(dir, 493) -- 493 equals 0o755
-    end
-end
-
 function get_plugin_path(url)
     local path = url:gsub("%.git$", "")
 
@@ -138,7 +119,7 @@ function detect_dpp_hubsite_state(current_dpp_hubsite, dpp_home, dpp_repo)
     -- Skip the detection progress and save the current hubsite when the dpp is
     -- not initilized
     if not vim.uv.fs_stat(dpp_home) then
-        fs_mkdir_resursive(dpp_home)
+        utils.fs_mkdir_resursive(dpp_home)
         write_to_file(dpp_last_hubsite_save_path, current_dpp_hubsite)
 
         return state_updated
@@ -167,7 +148,7 @@ function detect_dpp_hubsite_state(current_dpp_hubsite, dpp_home, dpp_repo)
 
         vim.notify(string.format("linking '%s' to '%s'", src_repo_root, new_repo_root))
 
-        fs_mkdir_resursive(fs.dirname(new_repo_root))
+        utils.fs_mkdir_resursive(fs.dirname(new_repo_root))
         uv.fs_symlink(src_repo_root, new_repo_root)
 
         update_hubsite_for_plugins(src_repo_root, last_dpp_hubsite, current_dpp_hubsite)

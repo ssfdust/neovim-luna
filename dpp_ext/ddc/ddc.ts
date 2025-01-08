@@ -6,7 +6,6 @@ import * as fn from "jsr:@denops/std@~7.4.0/function";
 
 export class Config extends BaseConfig {
     override async config(args: ConfigArguments): Promise<void> {
-        const hasNvim = args.denops.meta.host === "nvim";
 
         const commonSources = [
             "around",

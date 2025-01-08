@@ -13,6 +13,8 @@ local uv = vim.uv
 local autocmd = api.nvim_create_autocmd   -- Create autocommand
 local setenv = fn.setenv                  -- set environment
 
+local utils = require("luna/utils")
+
 local dpp_home = fs.joinpath(fn.stdpath('data'), 'dpp')
 
 -- Set global enviromnent
@@ -139,6 +141,7 @@ else
     local updated = detect_dpp_hubsite_state(vim.g.dpp_hubsite, dpp_home, dpp_repo)
     _exec_init_gitcmds(dpp_repo, default_branch)
     _exec_init_gitcmds(dpp_lazy_repo, default_branch)
+    utils.fs_mkdir_resursive(fn.stdpath("cache"))
     activate_dpp(updated)
 end
 

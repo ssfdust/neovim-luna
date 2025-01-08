@@ -25,6 +25,8 @@
     - name: Install deno for Fedora
       shell: curl -fsSL https://deno.land/x/install/install.sh | sh -s -- -y
       when: ansible_distribution == "Fedora"
+      args:
+        creates: ~/.deno/bin/deno
     - name: Initilize neovim
       script: headless-install
       args:

@@ -1,5 +1,5 @@
-require('hubsite_manager')
-require('dpp_init')
+require('luna/hubsite_manager')
+require('luna/dpp_init')
 require('core/options')
 require('core/autocmds')
 require('core/keymaps')
