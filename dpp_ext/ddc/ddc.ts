@@ -6,7 +6,6 @@ import * as fn from "jsr:@denops/std@~7.4.0/function";
 
 export class Config extends BaseConfig {
     override async config(args: ConfigArguments): Promise<void> {
-
         const commonSources = [
             "around",
             "file",
@@ -42,79 +41,143 @@ export class Config extends BaseConfig {
                 "-": ["around", "line"],
                 "=": ["input"],
             },
-                sourceOptions: {
-                    _: {
-                        ignoreCase: true,
-                        matchers: ["matcher_fuzzy"],
-                        sorters: ["sorter_fuzzy"],
-                        converters: ["converter_fuzzy"],
-                        timeout: 1000,
-                    },
-                    around: {
-                        mark: "A",
-                    },
-                    buffer: {
-                        mark: "B",
-                    },
-                    cmdline: {
-                        mark: "cmdline",
-                        forceCompletionPattern: "\\S/\\S*|\\.\\w*",
-                    },
-                    codeium: {
-                        mark: "cod",
-                        matchers: ["matcher_length"],
-                        minAutoCompleteLength: 0,
-                        isVolatile: true,
-                    },
-                    input: {
-                        mark: "input",
-                        forceCompletionPattern: "\\S/\\S*",
-                        isVolatile: true,
-                    },
-                    line: {
-                        mark: "line",
-                    },
-                    lsp: {
-                        mark: "lsp",
-                        forceCompletionPattern: "\\.\\w*|::\\w*|->\\w*",
-                        dup: "force",
-                    },
-                    file: {
-                        mark: "F",
-                        isVolatile: true,
-                        minAutoCompleteLength: 1000,
-                        forceCompletionPattern: "\\S/\\S*",
-                    },
-                    "cmdline-history": {
-                        mark: "history",
-                        sorters: [],
-                    },
-                    "shell-native": {
-                        mark: "sh",
-                        isVolatile: true,
-                        forceCompletionPattern: "\\S/\\S*",
-                    },
+            filterParams: {
+                matcher_fuzzy: {
+                    hlGroup: "Title"
                 },
-                sourceParams: {
-                    buffer: {
-                        requireSameFiletype: false,
-                        limitBytes: 50000,
-                        fromAltBuf: true,
-                        forceCollect: true,
+                converter_kind_labels: {
+                    kindLabels: {
+                        Text: "Text ",
+                        Method: "Method ",
+                        Function: "Function ",
+                        Constructor: "Constructor ",
+                        Field: "Field ",
+                        Variable: "Variable ",
+                        Class: "Class ",
+                        Interface: "Interface ",
+                        Module: "Module ",
+                        Property: "Property ",
+                        Unit: " Unit ",
+                        Value: "Value ",
+                        Enum: "Enum ",
+                        Keyword: "Keyword ",
+                        Snippet: "Snippet ",
+                        Color: "Color ",
+                        File: "File ",
+                        Reference: "Reference ",
+                        Folder: "Folder ",
+                        EnumMember: "EnumMember ",
+                        Constant: "Constant ",
+                        Struct: "Struct ",
+                        Event: "Event ",
+                        Operator: "Operator ",
+                        TypeParameter: "TypeParameter "
                     },
-                    file: {
-                        filenameChars: "[:keyword:].",
-                    },
-                    lsp: {
-                        enableAdditionalTextEdit: true,
-                        enableDisplayDetail: true,
-                        enableMatchLabel: true,
-                        enableResolveItem: true,
-                    },
-                    "shell-native": {
-                        shell: "fish",
-                    },
+                    kindHlGroups: {
+                        Text: "String",
+                        Method: "Function",
+                        Function: "Function",
+                        Constructor: "Function",
+                        Field: "Identifier",
+                        Variable: "Identifier",
+                        Class: "Structure",
+                        Interface: "Structure",
+                        Module: "Function",
+                        Property: "Identifier",
+                        Unit: "Identifier",
+                        Value: "String",
+                        Enum: "Structure",
+                        Keyword: "Identifier",
+                        Snippet: "Structure",
+                        Color: "Structure",
+                        File: "Structure",
+                        Reference: "Function",
+                        Folder: "Structure",
+                        EnumMember: "Structure",
+                        Constant: "String",
+                        Struct: "Structure",
+                        Event: "Function",
+                        Operator: "Identifier",
+                        TypeParameter: "Identifier",
+                    }
                 },
+            },
+            sourceOptions: {
+                _: {
+                    ignoreCase: true,
+                    matchers: ["matcher_fuzzy"],
+                    sorters: ["sorter_fuzzy"],
+                    converters: ["converter_fuzzy"],
+                    timeout: 1000,
+                },
+                around: {
+                    mark: "A",
+                },
+                buffer: {
+                    mark: "B",
+                },
+                cmdline: {
+                    mark: "cmdline",
+                    forceCompletionPattern: "\\S/\\S*|\\.\\w*",
+                },
+                codeium: {
+                    mark: "cod",
+                    matchers: ["matcher_length"],
+                    minAutoCompleteLength: 0,
+                    isVolatile: true,
+                },
+                input: {
+                    mark: "input",
+                    forceCompletionPattern: "\\S/\\S*",
+                    isVolatile: true,
+                },
+                line: {
+                    mark: "line",
+                },
+                lsp: {
+                    mark: "lsp",
+                    maxItems: 20,
+                    sorters: ["sorter_lsp-kind"],
+                    forceCompletionPattern: "\\.\\w*|::\\w*|->\\w*",
+                    converters: ["converter_kind_labels", "converter_fuzzy"],
+                    dup: "force",
+                },
+                file: {
+                    mark: "F",
+                    isVolatile: true,
+                    minAutoCompleteLength: 1000,
+                    forceCompletionPattern: "\\S/\\S*",
+                },
+                "cmdline-history": {
+                    mark: "history",
+                    sorters: [],
+                },
+                "shell-native": {
+                    mark: "sh",
+                    isVolatile: true,
+                    forceCompletionPattern: "\\S/\\S*",
+                },
+            },
+            sourceParams: {
+                buffer: {
+                    requireSameFiletype: false,
+                    limitBytes: 50000,
+                    fromAltBuf: true,
+                    forceCollect: true,
+                },
+                file: {
+                    filenameChars: "[:keyword:].",
+                },
+                lsp: {
+                    enableAdditionalTextEdit: true,
+                    enableDisplayDetail: true,
+                    enableMatchLabel: true,
+                    enableResolveItem: true,
+                },
+                "shell-native": {
+                    shell: "fish",
+                },
+            },
         });
 
         for (

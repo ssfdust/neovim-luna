@@ -19,3 +19,4 @@ hooks_file = '$BASE_DIR/lua/plugins/mason.lua'
 repo = 'nvim-treesitter/nvim-treesitter'
 on_event = ['CursorHold', 'BufRead']
 hooks_file = "$BASE_DIR/lua/plugins/treesitter.lua"
+
