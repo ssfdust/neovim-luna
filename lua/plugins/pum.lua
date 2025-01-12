@@ -15,16 +15,18 @@ pum_set_option({
     auto_confirm_time = 0,
     auto_select = false,
     border = 'none',
+--     highlight_columns = {
+--     },
     commit_characters = {'.'},
-    highlight_scrollbar = 'None',
+--     highlight_scrollbar = 'None',
     insert_preview = true,
-    max_width = 80,
-    offset_cmdcol = 0,
-    padding = false,
-    preview = false,
+    max_width = 95,
+--     offset_cmdcol = 0,
+--     padding = false,
+    preview = true,
     preview_width = 80,
-    reversed = false,
-    use_setline = false,
+--     reversed = false,
+--     use_setline = false,
 })
 
 -- local pum_set_local_option = fn["pum#set_local_option"]
