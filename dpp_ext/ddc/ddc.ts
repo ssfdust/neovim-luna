@@ -33,9 +33,9 @@ export class Config extends BaseConfig {
             ],
             sources: commonSources,
             cmdlineSources: {
-                ":": ["cmdline", "cmdline-history", "around"],
-                "@": ["input", "cmdline-history", "file", "around"],
-                ">": ["input", "cmdline-history", "file", "around"],
+                ":": ["cmdline", "cmdline_history", "around"],
+                "@": ["input", "cmdline_history", "file", "around"],
+                ">": ["input", "cmdline_history", "file", "around"],
                 "/": ["around", "line"],
                 "?": ["around", "line"],
                 "-": ["around", "line"],
@@ -148,11 +148,11 @@ export class Config extends BaseConfig {
                     minAutoCompleteLength: 1000,
                     forceCompletionPattern: "\\S/\\S*",
                 },
-                "cmdline-history": {
+                cmdline_history: {
                     mark: "history",
                     sorters: [],
                 },
-                "shell-native": {
+                shell_native: {
                     mark: "sh",
                     isVolatile: true,
                     forceCompletionPattern: "\\S/\\S*",
@@ -174,7 +174,7 @@ export class Config extends BaseConfig {
                     enableMatchLabel: true,
                     enableResolveItem: true,
                 },
-                "shell-native": {
+                shell_native: {
                     shell: "fish",
                 },
             },
@@ -219,8 +219,8 @@ export class Config extends BaseConfig {
         args.contextBuilder.patchFiletype("deol", {
             specialBufferCompletion: true,
             sources: [
-                "shell-native",
-                "shell-history",
+                "shell_native",
+                "shell_history",
                 "around",
             ],
             sourceOptions: {

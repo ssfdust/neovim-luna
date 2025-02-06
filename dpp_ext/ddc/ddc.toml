@@ -38,7 +38,7 @@ repo = 'Shougo/ddc-source-cmdline'
 on_source = 'ddc.vim'
 
 [[plugins]]
-repo = 'Shougo/ddc-source-cmdline-history'
+repo = 'Shougo/ddc-source-cmdline_history'
 on_source = 'ddc.vim'
 
 [[plugins]]
@@ -62,11 +62,7 @@ repo = 'Shougo/ddc-source-lsp'
 on_source = 'ddc.vim'
 
 [[plugins]]
-repo = 'Shougo/ddc-source-shell-native'
-on_source = 'ddc.vim'
-
-[[plugins]]
-repo = 'delphinus/ddc-shell-history'
+repo = 'Shougo/ddc-source-shell_native'
 on_source = 'ddc.vim'
 
 [[plugins]]

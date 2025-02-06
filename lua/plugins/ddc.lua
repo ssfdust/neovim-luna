@@ -32,7 +32,7 @@ function CommandlinePre(mode)
             if fn.getcmdline():match('^!') ~= nil then
                 context_buffer_patch = {
                     cmdlineSources = {
-                        'shell-native', 'cmdline', 'cmdline-history', 'around'
+                        'shell_native', 'cmdline', 'cmdline_history', 'around'
                     }
                 }
             end
