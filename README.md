@@ -9,7 +9,7 @@ Features and Screenshots
 * Code autocompletion with LSP (by [@ddc.vim](https://github.com/Shougo/ddc.vim)) and AI (by [@Codeium](https://codeium.com/))
 * File Manager (by [@ddu-ui-filer](https://github.com/Shougo/ddu-ui-filer))
 * Markdown preview (by [@peek.nvim](https://github.com/toppair/peek.nvim))
-* Terminal interface (by [@deol.nvim](https://github.com/Shougo/deol.nvim))
+* Terminal interface (by [@ddt.nvim](https://github.com/Shougo/ddt.vim))
 * Git management (by [@vim-fugitive](https://github.com/tpope/vim-fugitive))
 * Custom github site, which is very useful when you experience bad network when connecting to github.
 
