@@ -5,7 +5,6 @@
 -- Define keymaps with Lua APIs
 
 local set_keymap = vim.keymap.set             -- Set key map
-local fn = vim.fn                             -- Global vim functions
 
 local function map(mode, lhs, rhs, opts)
   local options = { noremap=true, silent=true }
@@ -20,11 +19,6 @@ map('', '<up>', '<nop>')
 map('', '<down>', '<nop>')
 map('', '<left>', '<nop>')
 map('', '<right>', '<nop>')
-
--- Buffer action keys
-map('n', '<leader>bn', '<Cmd>bn<CR>')
-map('n', '<leader>bp', '<Cmd>bp<CR>')
-map('n', '<leader>bd', '<Cmd>bd<CR>')
 
 -- Ctrl-S for save
 map('i', '<C-s>', '<Esc><Cmd>w<CR>i')
