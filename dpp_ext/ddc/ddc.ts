@@ -216,19 +216,6 @@ export class Config extends BaseConfig {
                 ],
             });
         }
-        args.contextBuilder.patchFiletype("deol", {
-            specialBufferCompletion: true,
-            sources: [
-                "shell_native",
-                "shell_history",
-                "around",
-            ],
-            sourceOptions: {
-                _: {
-                    keywordPattern: "[0-9a-zA-Z_./#:-]*",
-                },
-            },
-        });
 
         // Use "#" as TypeScript keywordPattern
         for (const filetype of ["typescript"]) {

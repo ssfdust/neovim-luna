@@ -38,7 +38,7 @@ function CommandlinePre(mode)
             end
             return context_buffer_patch
         end)
-        
+
         -- global completion configuration
         fn['ddc#custom#patch_buffer']("sourceOptions", {
             _ = {
@@ -86,7 +86,6 @@ local key_map_expr = { noremap = true, replace_keycodes = false, expr = true }
 local t = function(str)
     return vim.api.nvim_replace_termcodes(str, true, true, true)
 end
-
 
 fn['ddc#custom#load_config'](fs.joinpath(os.getenv('BASE_DIR'), 'dpp_ext', 'ddc', 'ddc.ts'))
 

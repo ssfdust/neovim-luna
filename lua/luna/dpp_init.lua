@@ -135,6 +135,16 @@ local function activate_dpp(reset_dpp)
 
 end
 
+-- Start the custom neovim rpc server, we need to define the server addrees.
+local function create_server_pipe()
+    local pipedir = fs.joinpath(fn.stdpath('run'), 'nvim', 'rpc')
+    vim.g.rpc_server_addr = fs.joinpath(pipedir, "nvim-server.sock")
+    utils.fs_mkdir_resursive(pipedir)
+    if not uv.fs_stat(vim.g.rpc_server_addr) then
+        fn.serverstart(vim.g.rpc_server_addr)
+    end
+end
+
 if os.getenv("NO_LUNA_INIT") then
     return
 else
@@ -142,6 +152,7 @@ else
     _exec_init_gitcmds(dpp_repo, default_branch)
     _exec_init_gitcmds(dpp_lazy_repo, default_branch)
     utils.fs_mkdir_resursive(fn.stdpath("cache"))
+    -- create_server_pipe()
     activate_dpp(updated)
 end
 

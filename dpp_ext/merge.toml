@@ -6,9 +6,9 @@ hooks_file = "$BASE_DIR/lua/plugins/rooter.lua"
 repo = 'antoyo/vim-licenses'
 hooks_file = "$BASE_DIR/lua/plugins/licenses.lua"
 
-[[plugins]]
-repo = 'Shougo/deol.nvim'
-hooks_file = "$BASE_DIR/lua/plugins/deol.lua"
+# [[plugins]]
+# repo = 'Shougo/deol.nvim'
+# hooks_file = "$BASE_DIR/lua/plugins/deol.lua"
 
 [[plugins]]
 repo = 'nvim-tree/nvim-web-devicons'

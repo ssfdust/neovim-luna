@@ -26,7 +26,6 @@ import type { Denops } from "jsr:@denops/std@~7.4.0";
 import * as fn from "jsr:@denops/std@~7.4.0/function";
 
 import { walk } from "jsr:@std/fs@~1.0.0/walk";
-import { expandGlob } from "jsr:@std/fs@~1.0.0/expand-glob";
 
 export class Config extends BaseConfig {
     override async config(args: {
@@ -78,6 +77,7 @@ export class Config extends BaseConfig {
                 { path: "$BASE_DIR/dpp_ext/ddc/ddc.toml", lazy: true },
                 { path: "$BASE_DIR/dpp_ext/denops.toml", lazy: true },
                 { path: "$BASE_DIR/dpp_ext/ddu/ddu.toml", lazy: true },
+                { path: "$BASE_DIR/dpp_ext/ddt/ddt.toml", lazy: true },
                 { path: "$BASE_DIR/dpp_ext/lazy.toml", lazy: true },
                 { path: "$BASE_DIR/dpp_ext/nvim-lsp.toml", lazy: true },
             ].map((tomlFile) =>
@@ -125,7 +125,7 @@ export class Config extends BaseConfig {
             LazyParams,
         ] = await args.denops.dispatcher.getExt(
             "lazy",
-        ) as [LazyExt | undefined, ExtOptions, PackspecParams];
+        ) as [LazyExt | undefined, ExtOptions, LazyParams];
         let lazyResult: LazyMakeStateResult | undefined = undefined;
         if (lazyExt) {
             const action = lazyExt.actions.makeState;

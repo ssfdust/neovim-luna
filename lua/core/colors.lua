@@ -12,11 +12,14 @@ local g = vim.g       -- Global variables
 
 g.colorscheme = 'kanagawa-wave'
 
+
 -----------------------------------------------------------
 -- Load color schema
 -----------------------------------------------------------
 
 local ok, _ = pcall(vim.cmd, "colorscheme " .. g.colorscheme)
+
+vim.cmd[[highlight PmenuMatchLead gui=NONE guibg=NONE guifg=fg]]
 
 if not ok then
     vim.cmd[[colorscheme slate]]

@@ -1,4 +1,3 @@
--- lua_source {{{
 -----------------------------------------------------------
 -- Ddu UI configuration file
 -----------------------------------------------------------
@@ -6,6 +5,7 @@
 -- Plugin: ddu-ui-ff
 -- url: https://github.com/Shougo/ddu-ui-ff
 
+-- lua_source {{{
 local augroup = vim.api.nvim_create_augroup   -- Create/get autocommand group
 augroup('DduFFUserGrp', { clear = true })
 

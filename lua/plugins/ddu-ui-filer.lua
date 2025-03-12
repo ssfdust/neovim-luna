@@ -1,18 +1,19 @@
--- lua_add {{{
 -----------------------------------------------------------
 -- Ddu UI configuration file
 -----------------------------------------------------------
 
 -- Plugin: ddu-ui-filer
 -- url: https://github.com/Shougo/ddu-ui-filer
+
+-- lua_add {{{
 local set_keymap = vim.keymap.set             -- Set key map
 local key_map_opts = { noremap = true, silent = true }
+local ddu_start = vim.fn['ddu#start']
 
 set_keymap(
     'n',
     '<Space>fl',
     function()
-        local ddu_start = vim.fn['ddu#start']
         ddu_start({
             name = 'filer-' .. vim.fn.win_getid(),
             ui = 'filer',
@@ -28,13 +29,12 @@ set_keymap(
             },
         })
     end,
-    key_map_opts    
+    key_map_opts
 )
 set_keymap(
     'n',
     '<Space>fv',
     function()
-        local ddu_start = vim.fn['ddu#start']
         ddu_start({
             name = 'filer-' .. vim.fn.win_getid(),
             ui = 'filer',
@@ -56,7 +56,7 @@ set_keymap(
             }
         })
     end,
-    key_map_opts    
+    key_map_opts
 )
 -- }}}
 
