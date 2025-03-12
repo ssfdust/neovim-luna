@@ -211,7 +211,7 @@ export class Config extends BaseConfig {
                     },
                 },
                 sources: [
-                    "shell-native",
+                    "shell_native",
                     "around",
                 ],
             });
