@@ -15,10 +15,29 @@ set_keymap(
     'n',
     '<Space>t',
     function()
+        local HEIGHT_RATIO = 0.5
+        local WIDTH_RATIO = 0.7
         local ddt_name = vim.t.ddt_ui_terminal_last_name or ('terminal-' .. vim.fn.win_getid())
+        local screen_w = vim.opt.columns:get()
+        local screen_h = vim.opt.lines:get() - vim.opt.cmdheight:get()
+        local window_w = screen_w * WIDTH_RATIO
+        local window_h = screen_h * HEIGHT_RATIO
+        local window_w_int = math.floor(window_w)
+        local window_h_int = math.floor(window_h)
+        local center_x = (screen_w - window_w) / 2
+        local center_y = ((vim.opt.lines:get() - window_h) / 2)
+                         - vim.opt.cmdheight:get()
         ddt_start({
             name = ddt_name,
             ui = 'terminal',
+            uiParams = {
+                terminal = {
+                    winWidth = window_w_int,
+                    winCol = center_x,
+                    winRow = center_y,
+                    winHeight = window_h_int,
+                },
+            },
         })
     end,
     key_map_opts
@@ -52,10 +71,6 @@ ddt_patch_global({
             command = {shell},
             split = "floating",
             promptPattern = prompt_pattern,
-            winWidth = 80,
-            winCol = 35,
-            winRow = 12,
-            winHeight = 20,
         }
     }
 })
